@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { ItineraryItem, TripSettings } from './types';
-import { DEFAULT_ITINERARY, DEFAULT_TRIP_SETTINGS } from './initialData';
+import { DEFAULT_ITINERARY, DEFAULT_TRIP_SETTINGS, PLACE_COORDINATES } from './initialData';
 import TripHeader from './components/TripHeader';
 import ItineraryList from './components/ItineraryList';
 import TravelMap from './components/TravelMap';
-import AIPlannerPanel from './components/AIPlannerPanel';
 import PdfExportModal from './components/PdfExportModal';
 import { Compass, RefreshCw, FileDown, Layers, Sparkles, MessageSquare, Map, ListTodo, HelpCircle, ChevronLeft, ChevronRight, Globe } from 'lucide-react';
 
@@ -52,10 +51,9 @@ export default function App() {
 
   // Collapsible Desktop Panels state
   const [isLeftCollapsed, setIsLeftCollapsed] = useState(false);
-  const [isRightCollapsed, setIsRightCollapsed] = useState(false);
 
-  // Mobile View Tabs state: 'list' | 'map' | 'ai'
-  const [mobileTab, setMobileTab] = useState<'list' | 'map' | 'ai'>('list');
+  // Mobile View Tabs state: 'list' | 'map'
+  const [mobileTab, setMobileTab] = useState<'list' | 'map'>('list');
 
   // Sync state with LocalStorage on update
   useEffect(() => {
@@ -70,26 +68,46 @@ export default function App() {
     localStorage.setItem('thaiwander_lang', lang);
   }, [lang]);
 
-  // Handle adding an itinerary item (with server-side geocoding)
+  // Handle adding an itinerary item (with 100% client-side geocoding for static/GitHub hosting)
   const handleAddItem = async (newItem: Omit<ItineraryItem, 'id' | 'lat' | 'lng'>) => {
     try {
-      const response = await fetch('/api/geocode', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ placeName: newItem.placeName })
-      });
+      // 1. Check if we already have preset coordinates in our local dictionary
+      const presetCoord = PLACE_COORDINATES[newItem.placeName];
+      let lat = presetCoord?.lat;
+      let lng = presetCoord?.lng;
 
-      const data = await response.json();
+      if (!lat || !lng) {
+        // Query OpenStreetMap Nominatim directly from the client side!
+        const searchUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(newItem.placeName + ", Thailand")}&format=json&limit=1`;
+        const response = await fetch(searchUrl, {
+          headers: { 'Accept-Language': 'fr,en' }
+        });
+        const data = await response.json();
+        if (data && data.length > 0) {
+          lat = parseFloat(data[0].lat);
+          lng = parseFloat(data[0].lon);
+        } else {
+          // Default fallback coordinates around Bangkok
+          lat = 13.7563 + (Math.random() - 0.5) * 0.3;
+          lng = 100.5018 + (Math.random() - 0.5) * 0.3;
+        }
+      }
+
+      // Check if we can find default images or tips from DEFAULT_ITINERARY matching the name
+      const defaultMatch = DEFAULT_ITINERARY.find(
+        d => d.placeName.toLowerCase().includes(newItem.placeName.toLowerCase()) || 
+             newItem.placeName.toLowerCase().includes(d.placeName.toLowerCase())
+      );
 
       const itemWithId: ItineraryItem = {
         ...newItem,
         id: `item-${Date.now()}`,
-        lat: data.lat,
-        lng: data.lng,
-        notes: newItem.notes || data.notes,
-        imageUrl: data.imageUrl,
-        detailedTips: data.detailedTips,
-        maxInfo: data.maxInfo
+        lat,
+        lng,
+        notes: newItem.notes || (defaultMatch ? defaultMatch.notes : (lang === 'fr' ? "Nouvelle étape ajoutée à l'itinéraire." : "เพิ่มสถานที่ใหม่แล้ว")),
+        imageUrl: defaultMatch?.imageUrl || "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=600&q=80",
+        detailedTips: defaultMatch?.detailedTips || (lang === 'fr' ? "Préparez votre équipement et vérifiez la météo locale." : "เตรียมอุปกรณ์และตรวจสอบสภาพอากาศก่อนเดินทาง"),
+        maxInfo: defaultMatch?.maxInfo || (lang === 'fr' ? "Profitez de cette étape pour vous ressourcer au cœur de la Thaïlande." : "เพลิดเพลินไปกับธรรมชาติอันสวยงาม")
       };
 
       // Set items and sort them sequentially by Day
@@ -101,14 +119,15 @@ export default function App() {
       // Highlight the newly added destination on map
       setSelectedItemId(itemWithId.id);
     } catch (err) {
-      console.error("Geocoding failed. Adding item with default Bangkok coordinates:", err);
+      console.error("Geocoding failed. Adding item with default coordinates:", err);
       // Fallback
       const fallbackItem: ItineraryItem = {
         ...newItem,
         id: `item-${Date.now()}`,
         lat: 13.7563 + (Math.random() - 0.5) * 0.3,
         lng: 100.5018 + (Math.random() - 0.5) * 0.3,
-        notes: newItem.notes || "Coordonnées par défaut (Bangkok)."
+        notes: newItem.notes || "Coordonnées par défaut.",
+        imageUrl: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=600&q=80"
       };
       setItems(prev => [...prev, fallbackItem].sort((a, b) => a.day - b.day));
       setSelectedItemId(fallbackItem.id);
@@ -225,7 +244,7 @@ export default function App() {
 
       {/* Main App Layout */}
       <div className="flex-1 flex overflow-hidden relative">
-        {/* DESKTOP LAYOUT (3 Pane Layout: Itinerary List + Map + AI Expert Panel) */}
+        {/* DESKTOP LAYOUT (2 Pane Layout: Itinerary List + Map) */}
         <div className="hidden lg:flex w-full h-full">
           {/* Left Panel: Itinerary and details (38% width) */}
           <div className={`transition-all duration-300 h-full flex flex-col bg-white overflow-hidden ${
@@ -253,7 +272,7 @@ export default function App() {
           </div>
 
           {/* Center Panel: Map (dynamically expanding) */}
-          <div className="flex-1 h-full relative border-r border-slate-200">
+          <div className="flex-1 h-full relative">
             {/* Collapse Left Button */}
             <button
               onClick={() => setIsLeftCollapsed(!isLeftCollapsed)}
@@ -268,35 +287,14 @@ export default function App() {
               )}
             </button>
 
-            {/* Collapse Right Button */}
-            <button
-              onClick={() => setIsRightCollapsed(!isRightCollapsed)}
-              className="absolute z-20 bg-white hover:bg-slate-50 text-slate-700 hover:text-slate-900 border border-slate-200 rounded-lg p-2 shadow-md transition-all duration-200 cursor-pointer flex items-center justify-center"
-              style={{ right: '16px', top: '16px' }}
-              title={isRightCollapsed ? "Afficher l'assistant IA" : "Masquer l'assistant IA"}
-            >
-              {isRightCollapsed ? (
-                <ChevronLeft className="w-4 h-4" />
-              ) : (
-                <ChevronRight className="w-4 h-4" />
-              )}
-            </button>
-
             <TravelMap
               items={items}
               selectedItemId={selectedItemId}
               onItemSelect={setSelectedItemId}
               isLeftCollapsed={isLeftCollapsed}
-              isRightCollapsed={isRightCollapsed}
+              isRightCollapsed={true}
               lang={lang}
             />
-          </div>
-
-          {/* Right Panel: AI Planner Panel (28% width) */}
-          <div className={`transition-all duration-300 h-full overflow-hidden ${
-            isRightCollapsed ? 'w-0 border-none' : 'w-[28%] border-l border-slate-200'
-          }`}>
-            <AIPlannerPanel items={items} lang={lang} />
           </div>
         </div>
 
@@ -338,12 +336,6 @@ export default function App() {
                 />
               </div>
             )}
-
-            {mobileTab === 'ai' && (
-              <div className="h-full bg-white">
-                <AIPlannerPanel items={items} lang={lang} />
-              </div>
-            )}
           </div>
 
           {/* Bottom Navigation bar for mobile viewports */}
@@ -365,15 +357,6 @@ export default function App() {
             >
               <Map className="w-5 h-5" />
               <span className="text-[10px]">Carte</span>
-            </button>
-            <button
-              onClick={() => setMobileTab('ai')}
-              className={`flex-1 flex flex-col items-center justify-center gap-1 cursor-pointer transition-colors ${
-                mobileTab === 'ai' ? 'text-emerald-600 font-bold' : 'text-slate-400 hover:text-slate-600'
-              }`}
-            >
-              <Sparkles className="w-5 h-5" />
-              <span className="text-[10px]">Conseils IA</span>
             </button>
           </nav>
         </div>
