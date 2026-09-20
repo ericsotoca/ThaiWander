@@ -35,7 +35,7 @@ export const DEFAULT_ITINERARY: ItineraryItem[] = [
     lng: 100.3161,
     duration: "1 nuit",
     budget: 0,
-    imageUrl: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=600&q=80",
     detailedTips: "Logement chez l'habitant gratuit. Adresse exacte : 123/99 Sarintara 1 Village, Khok Kham Subdistrict, Mueang Samut Sakhon District, Samut Sakhon 74000. Profitez-en pour vous reposer et planifier le départ. Achetez vos cartouches de gaz à vis (230g ou 450g) chez Decathlon Rama IV à Bangkok avant de prendre la route vers le Nord.",
     maxInfo: "Un accueil chaleureux et gratuit chez l'habitant. Idéal pour commencer le road trip en toute sérénité et s'immerger directement dans la vie locale thaïlandaise."
   },
@@ -49,9 +49,9 @@ export const DEFAULT_ITINERARY: ItineraryItem[] = [
     lng: 100.0232,
     duration: "4h",
     budget: 200,
-    imageUrl: "https://images.unsplash.com/photo-1608958416719-74e6c38daef0?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1598977123418-45f04b01d4ae?auto=format&fit=crop&w=600&q=80",
     detailedTips: "Montez les 449 marches menant au temple sacré au sommet du mont Sakaekrang pour admirer le lever du soleil sur la province d'Uthai Thani.",
-    maxInfo: "Ce temple est mondialement célèbre pour l'événement spectaculaire du Tak Bat Devo, célébré à la fin de la retraite bouddhiste des pluies (Ok Phansa), où plus de 500 moines descendent le mont pour recevoir les offrandes des fidèles."
+    maxInfo: "Ce temple est mondialement célèbre pour l'événement spectaculaire du Tak Bat Devo, célébré à la fin de la retraite bouddhiste des pluies (Ok Phansa), où plus de 500 moines descendent le mont pour recevoir les offranges des fidèles."
   },
   {
     id: "item-3",
@@ -63,7 +63,7 @@ export const DEFAULT_ITINERARY: ItineraryItem[] = [
     lng: 99.1171,
     duration: "3 nuits",
     budget: 300,
-    imageUrl: "https://images.unsplash.com/photo-1500627869374-13cd993b1115?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=600&q=80",
     detailedTips: "Prévoyez des vêtements très chauds pour la nuit. Chong Yen est réputé pour son vent constant et ses températures fraîches (parfois 12°C). Pensez également à emporter du répulsif contre les petits moucherons de sable de montagne.",
     maxInfo: "L'un des parcs de jungle de montagne les plus sauvages du pays. Le point de vue de Chong Yen est situé à 1 340 mètres d'altitude, offrant des mers de nuages matinales à couper le souffle. Ne manquez pas la cascade de Khlong Lan, un mur d'eau titanesque de 100 mètres de haut."
   },
@@ -77,7 +77,7 @@ export const DEFAULT_ITINERARY: ItineraryItem[] = [
     lng: 99.4795,
     duration: "2 nuits",
     budget: 300,
-    imageUrl: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1590001155093-a3c66ab0c3ff?auto=format&fit=crop&w=600&q=80",
     detailedTips: "Louez un vélo à l'entrée du parc historique pour environ 30 THB. Cela vous permettra de découvrir l'ensemble des ruines à votre rythme, à l'ombre d'arbres séculaires géants.",
     maxInfo: "Classé au patrimoine mondial de l'UNESCO, ce site abrite les ruines de l'ancienne cité sœur de Sukhothai. Entouré par une jungle luxuriante et des collines préservées, il est incroyablement paisible, authentique, et beaucoup moins fréquenté par les touristes."
   },
@@ -91,7 +91,7 @@ export const DEFAULT_ITINERARY: ItineraryItem[] = [
     lng: 99.4716,
     duration: "3 nuits",
     budget: 300,
-    imageUrl: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80",
     detailedTips: "Achetez un petit panier d'œufs de caille ou de poule vendus à l'entrée par les locaux et plongez-le dans les sources bouillonnantes à 82°C pour déguster des œufs mollets parfaits cuits par la Terre !",
     maxInfo: "Un joyau caché qui combine des sources chaudes minérales et d'eau douce fraîche. Vous pouvez louer de superbes cabines de bains thermaux privés pour seulement 50 THB. Le camping est ombragé, plat et situé au bord d'une agréable rivière de montagne."
   },
@@ -105,7 +105,7 @@ export const DEFAULT_ITINERARY: ItineraryItem[] = [
     lng: 98.4867,
     duration: "3 nuits",
     budget: 300,
-    imageUrl: "https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1510070112810-d4e9a46d9e91?auto=format&fit=crop&w=600&q=80",
     detailedTips: "Les nuits au camping de Dong Son (1 300m) peuvent descendre sous les 5°C de novembre à janvier. Louez ou apportez un bon sac de couchage thermique et une veste de montagne.",
     maxInfo: "Le toit de la Thaïlande, culminant à 2 565 mètres. Explorez le sentier de brume moussue Ang Ka, visitez les majestueuses pagodes royales jumelles, et admirez la cascade Mae Ya, l'une des plus spectaculaires d'Asie du Sud-Est avec ses chutes en gradins."
   },
@@ -133,7 +133,7 @@ export const DEFAULT_ITINERARY: ItineraryItem[] = [
     lng: 99.1418,
     duration: "3 nuits",
     budget: 300,
-    imageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1547036967-23d11aacaee0?auto=format&fit=crop&w=600&q=80",
     detailedTips: "Commandez un brûleur Mookata traditionnel (barbecue/fondue thaïlandaise) à l'accueil du parc pour votre dîner sous les étoiles au camping d'altitude de Kiew Lom.",
     maxInfo: "Le deuxième plus haut sommet de Thaïlande (2 285m). Connu pour ses geysers d'eau thermale jaillissants à plus de 50 mètres de haut et ses sentiers escarpés offrant un superbe lever de soleil sur la mer de nuages."
   },
@@ -147,7 +147,7 @@ export const DEFAULT_ITINERARY: ItineraryItem[] = [
     lng: 99.8406,
     duration: "2 nuits",
     budget: 1500,
-    imageUrl: "https://images.unsplash.com/photo-1543157148-f411b994793a?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=80",
     detailedTips: "Arrivez au bureau d'immigration dès 8h15 pour faire partie des premiers numéros d'attente. Apportez votre formulaire TM30 imprimé de votre hôtel pour obtenir votre extension de visa de 30 jours sans accroc.",
     maxInfo: "Une halte stratégique indispensable à la fin de vos 3 premiers de séjour. Profitez d'un hôtel douillet avec piscine à Chiang Rai, faites vos lessives dans les laveries automatiques de la ville, et visitez les célèbres temples Blanc, Noir et Bleu."
   },
@@ -161,7 +161,7 @@ export const DEFAULT_ITINERARY: ItineraryItem[] = [
     lng: 101.0784,
     duration: "3 nuits",
     budget: 300,
-    imageUrl: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=600&q=80",
     detailedTips: "La route 1081 (route du sel historique de Bo Kluea) est sinueuse et très inclinée par endroits. Assurez-vous d'avoir de bons freins et utilisez impérativement le frein moteur en descente.",
     maxInfo: "Situé dans la province reculée de Nan, ce parc abrite la rare plante Chomphu Phu Kha aux fleurs roses et de superbes campings perchés au-dessus de brumes denses."
   },
@@ -189,7 +189,7 @@ export const DEFAULT_ITINERARY: ItineraryItem[] = [
     lng: 101.5739,
     duration: "3 nuits",
     budget: 300,
-    imageUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=600&q=80",
     detailedTips: "Éteignez toutes vos lampes extérieures de camping après 22h pour profiter d'un ciel étoilé d'une pureté rare en Asie. Ne laissez aucun déchet plastique à l'extérieur de la voiture.",
     maxInfo: "Un immense plateau de forêts de pins primordiales relié à des parcs nationaux adjacents. C'est l'un des rares endroits de Thaïlande où vous entendrez et pourrez voir passer de véritables hardes d'éléphants sauvages au coucher du soleil."
   },
@@ -217,7 +217,7 @@ export const DEFAULT_ITINERARY: ItineraryItem[] = [
     lng: 100.5018,
     duration: "1 nuit",
     budget: 1000,
-    imageUrl: "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=600&q=80",
     detailedTips: "Restituez votre véhicule de location l'esprit tranquille. Si vous possédez du matériel de camping acheté en début de séjour, faites-en don à d'autres voyageurs en route ou laissez-les à un hôtel solidaire.",
     maxInfo: "Félicitations ! Vous venez de parcourir les plus beaux parcs naturels de Thaïlande en autonomie. Clôturez votre road-trip inoubliable par un fantastique massage traditionnel de fin de parcours."
   }

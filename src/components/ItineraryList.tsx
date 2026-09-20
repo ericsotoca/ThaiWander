@@ -3,7 +3,9 @@ import { ItineraryItem, CategoryType } from '../types';
 import { 
   MapPin, Tent, Bed, Compass, Utensils, 
   Trash2, ArrowUp, ArrowDown, Search, Plus, 
-  ChevronRight, Calendar, Info, Sparkles, Clock, Coins, Check, X, Car
+  ChevronRight, Calendar, Info, Sparkles, Clock, Coins, Check, X, Car,
+  ClipboardList, ThermometerSun, AlertTriangle, ChevronDown, ChevronUp,
+  Square, ShieldAlert, CloudRain
 } from 'lucide-react';
 import { DEFAULT_ITINERARY } from '../initialData';
 import { THAI_TRANSLATIONS, UI_TRANSLATIONS } from '../translations';
@@ -61,6 +63,19 @@ const CATEGORY_COLORS: Record<CategoryType, { bg: string; border: string; text: 
   }
 };
 
+const CHECKLIST_ITEMS = [
+  { id: 'gas', category: 'cooking', fr: 'Cartouches de gaz à vis (Decathlon Rama IV)', th: 'แก๊สกระป๋องหัวเกลียว (ดีแคทลอน พระราม 4)' },
+  { id: 'stove', category: 'cooking', fr: 'Réchaud de camping léger', th: 'เตาแคมป์ปิ้งขนาดพกพา' },
+  { id: 'cookware', category: 'cooking', fr: 'Popote de cuisine & couverts de bivouac', th: 'ชุดหม้อและเครื่องครัวแคมป์ปิ้ง' },
+  { id: 'tent', category: 'sleeping', fr: 'Tente imperméable double toit', th: 'เต็นท์กันฝนแบบมีฟลายชีทสองชั้น' },
+  { id: 'sleeping_bag', category: 'sleeping', fr: 'Sac de couchage chaud (confort 5-10°C d\'altitude)', th: 'ถุงนอนหนาสำหรับอุณหภูมิ 5-10 องศา' },
+  { id: 'pad', category: 'sleeping', fr: 'Matelas de sol gonflable isolant', th: 'แผ่นรองนอนเป่าลมสำหรับกันความเย็นจากพื้น' },
+  { id: 'windbreaker', category: 'clothing', fr: 'Vêtement chaud, coupe-vent & polaire', th: 'เสื้อกันลมและเสื้อขนเป็ด/เสื้อหนาว' },
+  { id: 'repellent', category: 'protection', fr: 'Répulsif moustiques & puces de sable (koun de Chong Yen)', th: 'ยากันยุงและยาทากันคุ่น (ช่องเย็น!)' },
+  { id: 'headlamp', category: 'protection', fr: 'Lampe frontale chargée + piles', th: 'ไฟฉายคาดศีรษะ + แบตเตอรี่สำรอง' },
+  { id: 'cash', category: 'protection', fr: 'Espèces (bahts) pour frais d\'entrée parcs (pas de CB)', th: 'เงินสดสำรอง (บาท) สำหรับค่าผ่านด่านอุทยาน' },
+];
+
 export default function ItineraryList({
   items,
   selectedItemId,
@@ -74,6 +89,88 @@ export default function ItineraryList({
 }: ItineraryListProps) {
   // Translate terms
   const t = UI_TRANSLATIONS[lang];
+
+  // Checklist State & LocalStorage persistence
+  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>(() => {
+    try {
+      const saved = localStorage.getItem('thaiwander_checklist');
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
+  const [isChecklistExpanded, setIsChecklistExpanded] = useState(false);
+  const [isWeatherExpanded, setIsWeatherExpanded] = useState(true);
+
+  // Toggle checklist item
+  const toggleChecklistItem = (id: string) => {
+    const updated = { ...checkedItems, [id]: !checkedItems[id] };
+    setCheckedItems(updated);
+    localStorage.setItem('thaiwander_checklist', JSON.stringify(updated));
+  };
+
+  // Dynamic Weather & Altitude advisor calculations based on items in itinerary
+  const weatherAlerts = useMemo(() => {
+    const alerts: Array<{ titleFr: string; titleTh: string; textFr: string; textTh: string; severity: 'high' | 'info' }> = [];
+    
+    const hasChongYen = items.some(it => it.placeName.toLowerCase().includes('chong yen') || it.placeName.toLowerCase().includes('mae wong'));
+    const hasDoiInthanon = items.some(it => it.placeName.toLowerCase().includes('inthanon') || it.placeName.toLowerCase().includes('om pok') || it.placeName.toLowerCase().includes('pha hom'));
+    const hasNan = items.some(it => it.placeName.toLowerCase().includes('nan') || it.placeName.toLowerCase().includes('phu kha'));
+    const hasKhaoYai = items.some(it => it.placeName.toLowerCase().includes('khao yai'));
+
+    if (hasChongYen) {
+      alerts.push({
+        titleFr: "⚠️ Climat & Altitude Chong Yen (Mae Wong)",
+        titleTh: "⚠️ ข้อควรระวังช่องเย็น (อุทยานแห่งชาติแม่วงก์)",
+        textFr: "Altitude 1340m. Vent constant très froid la nuit (jusqu'à 12°C). Présence active de moucherons piqueurs de sable (Koun). Prévoyez des vêtements longs et un répulsif fort.",
+        textTh: "ความสูง 1,340 ม. ลมแรงและอากาศหนาวจัดตอนกลางคืน (ต่ำถึง 12 องศา) มีคุ่นชุกชุม แนะนำให้สวมเสื้อผ้าแขนยาวขายาวมิดชิด และพกยาทากันคุ่นแบบเข้มข้นไปด้วย",
+        severity: 'high'
+      });
+    }
+
+    if (hasDoiInthanon) {
+      alerts.push({
+        titleFr: "❄️ Alerte Températures Doi Inthanon & Pha Hom Pok",
+        titleTh: "❄️ อากาศหนาวจัดบนยอดดอยอินทนนท์และผ้าห่มปก",
+        textFr: "Altitude 1300m - 2565m. Les nuits chutent sous les 5°C d'octobre à janvier. Sac de couchage chaud et vêtements thermiques indispensables !",
+        textTh: "ความสูงระดับ 1,300 - 2,565 ม. อุณหภูมิยอดหญ้าอาจลดต่ำกว่า 5 องศาในหน้าหนาว ถุงนอนหนาและเสื้อหนาวเป็นสิ่งจำเป็นอย่างยิ่ง!",
+        severity: 'high'
+      });
+    }
+
+    if (hasNan) {
+      alerts.push({
+        titleFr: "⛰️ Routes de Montagne Sinueuses (Nan / Doi Phu Kha)",
+        titleTh: "⛰️ เส้นทางโค้งและลาดชันสูงในจังหวัดน่าน (ดอยภูคา)",
+        textFr: "La route 1081 comporte des virages serrés avec des pentes à plus de 15%. Roulez avec vigilance et privilégiez le frein moteur.",
+        textTh: "ถนนเส้นลอยฟ้า 1081 มีทางลาดชันสูงและโค้งหักศอกกว่า 15% กรุณาขับรถด้วยความระมัดระวังเป็นพิเศษ และใช้เกียร์ต่ำในการลงเขาเสมอ",
+        severity: 'info'
+      });
+    }
+
+    if (hasKhaoYai) {
+      alerts.push({
+        titleFr: "🐘 Faune sauvage active (Khao Yai)",
+        titleTh: "🐘 สัตว์ป่าและช้างป่าในอุทยานแห่งชาติเขาใหญ่",
+        textFr: "Ne laissez AUCUNE nourriture dans la tente. Les cerfs et singes sauvages sont opportunistes et éventrent les sacs. Soyez vigilant sur les routes (éléphants).",
+        textTh: "ห้ามทิ้งหรือเก็บอาหารมีกลิ่นไว้ในเต็นท์เด็ดขาด เนื่องจากกวางและลิงอาจเข้ามาหาของกิน และให้ระมัดระวังช้างป่าข้ามถนนในอุทยาน",
+        severity: 'info'
+      });
+    }
+
+    if (alerts.length === 0) {
+      alerts.push({
+        titleFr: "☀️ Climat Général de Road-Trip en Thaïlande",
+        titleTh: "☀️ ข้อมูลสภาพภูมิอากาศทั่วไปของเส้นทางโรดทริป",
+        textFr: "Climat chaud en plaine. Prévoyez toutefois des vêtements légers et un sweat chaud pour les soirées en forêt dans les parcs nationaux.",
+        textTh: "สภาพอากาศอบอุ่นและมีแดดในตอนกลางวัน แต่จะมีอากาศเย็นสบายในผืนป่าและหุบเขายามค่ำคืน แนะนำให้พกเสื้อหนาวน้ำหนักเบาไปด้วย",
+        severity: 'info'
+      });
+    }
+
+    return alerts;
+  }, [items]);
 
   // Filters & Search
   const [searchTerm, setSearchTerm] = useState('');
@@ -274,6 +371,93 @@ export default function ItineraryList({
 
       {/* Primary Scrollable List container */}
       <div className="flex-1 overflow-y-auto p-5 space-y-6">
+        {/* Dynamic Weather, Altitude & Road-Trip Advisor Block */}
+        <div className="bg-gradient-to-br from-emerald-50/70 to-teal-50/50 rounded-xl p-4 border border-emerald-100 shadow-sm" id="weather-roadtrip-advisor">
+          <button 
+            onClick={() => setIsWeatherExpanded(!isWeatherExpanded)}
+            className="w-full flex items-center justify-between font-serif text-xs font-black uppercase text-slate-800 tracking-wider cursor-pointer"
+          >
+            <div className="flex items-center gap-2">
+              <CloudRain className="w-4 h-4 text-emerald-600 animate-pulse" />
+              <span>{lang === 'fr' ? "🌦️ Météo & Conseils Routiers" : "🌦️ คำแนะนำสภาพอากาศและเส้นทาง"}</span>
+            </div>
+            {isWeatherExpanded ? <ChevronUp className="w-4 h-4 text-slate-500" /> : <ChevronDown className="w-4 h-4 text-slate-500" />}
+          </button>
+          
+          {isWeatherExpanded && (
+            <div className="mt-3 space-y-3">
+              {weatherAlerts.map((alert, idx) => (
+                <div 
+                  key={idx} 
+                  className={`p-3 rounded-lg text-xs leading-relaxed border ${
+                    alert.severity === 'high' 
+                      ? 'bg-amber-50/70 border-amber-200/60 text-amber-900' 
+                      : 'bg-white/80 border-slate-100 text-slate-700'
+                  }`}
+                >
+                  <div className="font-bold mb-1 flex items-center gap-1.5 text-[11px] uppercase tracking-wide">
+                    {alert.severity === 'high' && <ShieldAlert className="w-3.5 h-3.5 text-amber-600" />}
+                    <span>{lang === 'fr' ? alert.titleFr : alert.titleTh}</span>
+                  </div>
+                  <p className="text-[11px] font-medium opacity-90">{lang === 'fr' ? alert.textFr : alert.textTh}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Camp Equipment & Preparation Checklist Block */}
+        <div className="bg-slate-50 rounded-xl p-4 border border-slate-200/65 shadow-sm" id="camping-equipment-checklist">
+          <button 
+            onClick={() => setIsChecklistExpanded(!isChecklistExpanded)}
+            className="w-full flex items-center justify-between font-serif text-xs font-black uppercase text-slate-800 tracking-wider cursor-pointer"
+          >
+            <div className="flex items-center gap-2">
+              <ClipboardList className="w-4 h-4 text-slate-700" />
+              <span>{lang === 'fr' ? "📋 Check-list Matériel & Gaz" : "📋 รายการจัดเตรียมอุปกรณ์แคมป์"}</span>
+            </div>
+            <div className="flex items-center gap-2 text-[10px] font-sans font-extrabold text-slate-500 bg-slate-200/50 px-2 py-0.5 rounded-full">
+              <span>{Object.values(checkedItems).filter(Boolean).length} / {CHECKLIST_ITEMS.length}</span>
+              {isChecklistExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+            </div>
+          </button>
+          
+          {isChecklistExpanded && (
+            <div className="mt-3.5 space-y-2.5 border-t border-slate-200/50 pt-3">
+              <p className="text-[10px] text-slate-400 font-semibold mb-2">
+                {lang === 'fr' 
+                  ? "Cochez vos indispensables de bivouac et fournitures de départ à Bangkok/Samut Sakhon :" 
+                  : "กรุณาเช็ครายการอุปกรณ์กางเต็นท์ที่ต้องจัดเตรียมด้านล่างนี้ :"}
+              </p>
+              <div className="grid grid-cols-1 gap-2">
+                {CHECKLIST_ITEMS.map((item) => {
+                  const isChecked = !!checkedItems[item.id];
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => toggleChecklistItem(item.id)}
+                      className="flex items-start gap-2.5 text-left text-xs text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-100/50 border border-slate-150 p-2.5 rounded-lg transition-all cursor-pointer shadow-sm"
+                    >
+                      <div className="mt-0.5 shrink-0">
+                        {isChecked ? (
+                          <div className="bg-emerald-600 border border-emerald-600 rounded p-0.5 text-white flex items-center justify-center w-4 h-4 shadow-sm">
+                            <Check className="w-3 h-3" />
+                          </div>
+                        ) : (
+                          <div className="border border-slate-300 rounded w-4 h-4 bg-white" />
+                        )}
+                      </div>
+                      <span className={`text-[11px] font-medium leading-tight ${isChecked ? 'line-through text-slate-400 font-normal' : 'text-slate-700'}`}>
+                        {lang === 'fr' ? item.fr : item.th}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+
         {/* Empty State */}
         {groupedItems.length === 0 && (
           <div className="text-center py-12 px-4 bg-slate-50 rounded-xl border border-dashed border-slate-200">
