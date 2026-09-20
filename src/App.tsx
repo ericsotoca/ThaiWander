@@ -230,15 +230,7 @@ export default function App() {
             <RefreshCw className="w-3 h-3" />
             <span className="hidden sm:inline">{lang === 'fr' ? "Réinitialiser" : "เริ่มใหม่"}</span>
           </button>
-          
-          <a
-            href="https://wanderlog.com/"
-            target="_blank"
-            rel="noreferrer"
-            className="text-[10px] text-slate-400 hover:text-white transition-colors hidden md:inline"
-          >
-            Inspiré de Wanderlog
-          </a>
+
         </div>
       </header>
 
