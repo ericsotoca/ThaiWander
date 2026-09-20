@@ -1,0 +1,6 @@
+{
+  "name": "ThaiWander",
+  "description": "Planificateur de voyage et road trip en Thaïlande style Wanderlog avec itinéraire interactif, carte et assistant IA.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
