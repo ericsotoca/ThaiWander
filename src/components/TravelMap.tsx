@@ -75,6 +75,7 @@ export default function TravelMap({
   const mapRef = useRef<L.Map | null>(null);
   const markersRef = useRef<Record<string, L.Marker>>({});
   const polylineRef = useRef<L.Polyline | null>(null);
+  const polylineBgRef = useRef<L.Polyline | null>(null);
 
   // Translate single item for map popups
   const getTranslatedItem = (item: ItineraryItem) => {
@@ -154,10 +155,14 @@ export default function TravelMap({
     });
     markersRef.current = {};
 
-    // Clear existing polyline
+     // Clear existing polylines
     if (polylineRef.current) {
       polylineRef.current.remove();
       polylineRef.current = null;
+    }
+    if (polylineBgRef.current) {
+      polylineBgRef.current.remove();
+      polylineBgRef.current = null;
     }
 
     if (items.length === 0) return;
@@ -217,6 +222,7 @@ export default function TravelMap({
       const dayLabel = lang === 'fr' ? `Jour ${item.day}` : `วันที่ ${item.day}`;
       const expertLabel = lang === 'fr' ? "💡 CONSEIL D'EXPERT" : "💡 คำแนะนำพิเศษ";
       const descLabel = lang === 'fr' ? "ℹ️ DESCRIPTION" : "ℹ️ ข้อมูลสถานที่";
+      const gpsLabel = lang === 'fr' ? "🚗 GPS (Ouvrir dans Google Maps)" : "🚗 นำทาง (เปิด Google Maps)";
 
       // Bind a nice popup with photos, advice, and detailed info
       const popupContent = `
@@ -258,6 +264,18 @@ export default function TravelMap({
                 <p class="m-0 text-[10px] leading-snug text-slate-600">${displayItem.maxInfo}</p>
               </div>
             ` : ''}
+            
+            <div class="mt-2.5 pt-2 border-t border-slate-100">
+              <a 
+                href="https://www.google.com/maps/search/?api=1&query=${item.lat},${item.lng}" 
+                target="_blank" 
+                rel="noreferrer" 
+                class="flex items-center justify-center gap-1.5 text-center bg-slate-800 hover:bg-slate-900 text-white text-[10px] font-extrabold py-1.5 px-2.5 rounded-lg transition-all"
+                style="display: flex; text-decoration: none;"
+              >
+                <span>${gpsLabel}</span>
+              </a>
+            </div>
           </div>
         </div>
       `;
@@ -267,12 +285,22 @@ export default function TravelMap({
       latLngs.push([item.lat, item.lng]);
     });
 
-    // Draw route connecting points in sequence
+    // Draw route connecting points in sequence with dual layer driving aesthetic
     if (latLngs.length > 1) {
+      // 1. Solid background road path
+      polylineBgRef.current = L.polyline(latLngs, {
+        color: '#059669', // Emerald 600
+        weight: 6,
+        opacity: 0.45,
+        lineCap: 'round',
+        lineJoin: 'round'
+      }).addTo(map);
+
+      // 2. Dashed inner GPS styling
       polylineRef.current = L.polyline(latLngs, {
         color: '#1e293b', // Slate 800
-        weight: 3.5,
-        opacity: 0.65,
+        weight: 2.5,
+        opacity: 0.85,
         dashArray: '8, 8',
         lineCap: 'round',
         lineJoin: 'round'

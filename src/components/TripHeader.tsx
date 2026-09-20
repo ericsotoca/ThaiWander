@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { TripSettings, ItineraryItem } from '../types';
-import { Calendar, Edit3, Save, MapPin, Compass, Wallet, Tent } from 'lucide-react';
+import { Calendar, Edit3, Save, MapPin, Compass, Wallet, Tent, Car } from 'lucide-react';
 
 interface TripHeaderProps {
   settings: TripSettings;
@@ -22,6 +22,24 @@ export default function TripHeader({ settings, items, onUpdateSettings, lang = '
       startDate
     });
     setIsEditing(false);
+  };
+
+  // Generate turn-by-turn driving Google Maps route linking all steps in sequence
+  const getGoogleMapsDirectionsLink = () => {
+    if (items.length === 0) return '#';
+    const sortedItems = [...items].sort((a, b) => a.day - b.day);
+    const validItems = sortedItems.filter(item => item.lat && item.lng);
+    if (validItems.length === 0) return '#';
+    
+    const origin = `${validItems[0].lat},${validItems[0].lng}`;
+    const destination = `${validItems[validItems.length - 1].lat},${validItems[validItems.length - 1].lng}`;
+    
+    if (validItems.length <= 2) {
+      return `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=driving`;
+    }
+    
+    const waypoints = validItems.slice(1, -1).map(item => `${item.lat},${item.lng}`).join('|');
+    return `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&waypoints=${encodeURIComponent(waypoints)}&travelmode=driving`;
   };
 
   // Compute statistics
@@ -74,11 +92,23 @@ export default function TripHeader({ settings, items, onUpdateSettings, lang = '
             )}
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
+            {!isEditing && items.length > 0 && (
+              <a
+                href={getGoogleMapsDirectionsLink()}
+                target="_blank"
+                rel="noreferrer"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2.5 rounded-lg flex items-center gap-1.5 shadow-md hover:shadow-lg transition-all border border-emerald-500 cursor-pointer text-center whitespace-nowrap"
+              >
+                <Car className="w-4 h-4 text-emerald-100" />
+                <span>{lang === 'fr' ? "🚗 Itinéraire GPS Voiture" : "🚗 นำทาง GPS ขับรถ"}</span>
+              </a>
+            )}
+            
             {isEditing ? (
               <button
                 onClick={handleSave}
-                className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold text-xs px-4 py-2 rounded-lg flex items-center gap-1.5 shadow-md cursor-pointer transition-colors"
+                className="bg-slate-800 hover:bg-slate-900 text-white font-semibold text-xs px-4 py-2 rounded-lg flex items-center gap-1.5 shadow-md cursor-pointer transition-colors"
               >
                 <Save className="w-3.5 h-3.5" />
                 <span>{lang === 'fr' ? "Enregistrer" : "บันทึก"}</span>

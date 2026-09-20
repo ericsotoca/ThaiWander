@@ -8,6 +8,7 @@ export const DEFAULT_TRIP_SETTINGS: TripSettings = {
 
 // Precise coordinates for all default places in Thailand
 export const PLACE_COORDINATES: Record<string, { lat: number; lng: number }> = {
+  "123/99 Sarintara 1 Village, Samut Sakhon": { lat: 13.5266, lng: 100.3161 },
   "Bangkok": { lat: 13.7563, lng: 100.5018 },
   "Wat Sangkat Rattanakhiri Uthai Thani": { lat: 15.3857, lng: 100.0232 },
   "Mae Wong National Park": { lat: 16.0384, lng: 99.1171 },
@@ -26,17 +27,17 @@ export const PLACE_COORDINATES: Record<string, { lat: number; lng: number }> = {
 export const DEFAULT_ITINERARY: ItineraryItem[] = [
   {
     id: "item-1",
-    placeName: "Bangkok",
+    placeName: "123/99 Sarintara 1 Village, Samut Sakhon",
     day: 1,
     category: "Lodging",
-    notes: "Départ du road trip - Achat gaz Decathlon",
-    lat: 13.7563,
-    lng: 100.5018,
+    notes: "Logement chez l'habitant (Gratuit) - Départ du road trip",
+    lat: 13.5266,
+    lng: 100.3161,
     duration: "1 nuit",
-    budget: 1200,
-    imageUrl: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=600&q=80",
-    detailedTips: "Achetez impérativement vos cartouches de gaz à vis (230g ou 450g) chez Decathlon Rama IV avant de quitter Bangkok. Prévoyez suffisamment d'espèces (bahts thaïlandais) car les accueils des parcs nationaux n'acceptent pas les cartes bancaires.",
-    maxInfo: "Capitale vibrante et point de départ idéal. Profitez-en pour louer votre véhicule de camping (un pick-up 4x4 ou SUV est vivement recommandé pour les routes de montagne du Nord)."
+    budget: 0,
+    imageUrl: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80",
+    detailedTips: "Logement chez l'habitant gratuit. Adresse exacte : 123/99 Sarintara 1 Village, Khok Kham Subdistrict, Mueang Samut Sakhon District, Samut Sakhon 74000. Profitez-en pour vous reposer et planifier le départ. Achetez vos cartouches de gaz à vis (230g ou 450g) chez Decathlon Rama IV à Bangkok avant de prendre la route vers le Nord.",
+    maxInfo: "Un accueil chaleureux et gratuit chez l'habitant. Idéal pour commencer le road trip en toute sérénité et s'immerger directement dans la vie locale thaïlandaise."
   },
   {
     id: "item-2",

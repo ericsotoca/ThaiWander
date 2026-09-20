@@ -3,7 +3,7 @@ import { ItineraryItem, CategoryType } from '../types';
 import { 
   MapPin, Tent, Bed, Compass, Utensils, 
   Trash2, ArrowUp, ArrowDown, Search, Plus, 
-  ChevronRight, Calendar, Info, Sparkles, Clock, Coins, Check, X
+  ChevronRight, Calendar, Info, Sparkles, Clock, Coins, Check, X, Car
 } from 'lucide-react';
 import { DEFAULT_ITINERARY } from '../initialData';
 import { THAI_TRANSLATIONS, UI_TRANSLATIONS } from '../translations';
@@ -536,6 +536,19 @@ export default function ItineraryList({
                                   </span>
                                   {displayItem.maxInfo}
                                 </div>
+                              )}
+
+                              {item.lat && item.lng && (
+                                <a
+                                  href={`https://www.google.com/maps/search/?api=1&query=${item.lat},${item.lng}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="w-full py-2.5 bg-slate-800 hover:bg-slate-950 text-white rounded-lg font-extrabold text-[11px] flex items-center justify-center gap-1.5 transition-colors shadow-sm cursor-pointer mt-1.5"
+                                  onClick={e => e.stopPropagation()}
+                                >
+                                  <Car className="w-3.5 h-3.5 text-emerald-300" />
+                                  <span>{lang === 'fr' ? "🚗 Lancer l'itinéraire GPS" : "🚗 เริ่มนำทางด้วย GPS"}</span>
+                                </a>
                               )}
                             </div>
                           )}

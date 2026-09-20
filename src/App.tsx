@@ -331,24 +331,24 @@ export default function App() {
           </div>
 
           {/* Bottom Navigation bar for mobile viewports */}
-          <nav className="absolute bottom-0 left-0 right-0 h-14 bg-white border-t border-slate-200 shadow-lg z-30 flex items-stretch">
+          <nav className="fixed bottom-0 left-0 right-0 h-14 bg-white border-t border-slate-200 shadow-xl z-50 flex items-stretch">
             <button
               onClick={() => setMobileTab('list')}
               className={`flex-1 flex flex-col items-center justify-center gap-1 cursor-pointer transition-colors ${
-                mobileTab === 'list' ? 'text-emerald-600 font-bold' : 'text-slate-400 hover:text-slate-600'
+                mobileTab === 'list' ? 'text-emerald-600 font-extrabold' : 'text-slate-400 hover:text-slate-600'
               }`}
             >
               <ListTodo className="w-5 h-5" />
-              <span className="text-[10px]">Itinéraire</span>
+              <span className="text-[11px] tracking-wide">{lang === 'fr' ? 'Itinéraire' : 'แผนการเดินทาง'}</span>
             </button>
             <button
               onClick={() => setMobileTab('map')}
               className={`flex-1 flex flex-col items-center justify-center gap-1 cursor-pointer transition-colors ${
-                mobileTab === 'map' ? 'text-emerald-600 font-bold' : 'text-slate-400 hover:text-slate-600'
+                mobileTab === 'map' ? 'text-emerald-600 font-extrabold' : 'text-slate-400 hover:text-slate-600'
               }`}
             >
               <Map className="w-5 h-5" />
-              <span className="text-[10px]">Carte</span>
+              <span className="text-[11px] tracking-wide">{lang === 'fr' ? 'Carte' : 'แผนที่'}</span>
             </button>
           </nav>
         </div>
