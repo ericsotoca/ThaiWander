@@ -43,6 +43,19 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         maxInfoTh: "จุดรวมพลแสนอบอุ่นก่อนออกเดินทางสู่การผจญภัยครั้งใหญ่"
       },
       {
+        placeName: "Lopburi (Phra Prang Sam Yod)",
+        category: "Lodging",
+        notesFr: "Halte historique dans la cité des singes",
+        notesTh: "แวะพักเมืองลพบุรี ชมพระปรางค์สามยอดและทุ่งทานตะวัน",
+        lat: 14.7995,
+        lng: 100.6534,
+        budgetPerNight: 400,
+        detailedTipsFr: "Explorez les temples d'influence khmère et observez les célèbres macaques. Gardez vos affaires en sécurité.",
+        detailedTipsTh: "ชมสถาปัตยกรรมพระปรางค์ขอมโบราณ ทักทายฝูงลิงป่า แนะนำเก็บสัมภาระส่วนตัวให้ดี",
+        maxInfoFr: "Une ville historique charmante à mi-chemin du grand Nord.",
+        maxInfoTh: "เมืองโบราณที่เป็นจุดแวะพักพักครึ่งทางเพื่อเซฟเวลาและผ่อนคลายร่างกาย"
+      },
+      {
         placeName: "Mae Wong National Park (Chong Yen)",
         category: "Camping",
         notesFr: "Bivouac sauvage de Chong Yen et air frais de montagne",
@@ -54,6 +67,32 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         detailedTipsTh: "ความสูง 1,340 ม. ลมแรงและอากาศหนาวเย็นตลอดทั้งปี แนะนำพกยาทากันคุ่นสูตรเข้มข้นติดตัว",
         maxInfoFr: "Le point de vue offre des levers de soleil légendaires sur les mers de brume.",
         maxInfoTh: "จุดชมวิวยอดนิยมสำหรับชมทะเลหมอกและแสงแรกของวันท่ามกลางป่าดิบเขา"
+      },
+      {
+        placeName: "Sukhothai Historical Park",
+        category: "Lodging",
+        notesFr: "Halte au berceau de l'histoire thaïe",
+        notesTh: "ปั่นจักรยานชมอุทยานประวัติศาสตร์สุโขทัย มรดกโลกโบราณ",
+        lat: 17.0156,
+        lng: 99.7042,
+        budgetPerNight: 450,
+        detailedTipsFr: "Louez un vélo à l'entrée pour parcourir les grands étangs de lotus au coucher du soleil.",
+        detailedTipsTh: "แนะนำให้เช่าจักรยานปั่นเลาะชมเงาสะท้อนเจดีย์เก่าในสระบัวช่วงเย็น แสงทองส่องสวยงามมาก",
+        maxInfoFr: "Classé à l'UNESCO, c'est l'un des plus précieux trésors historiques d'Asie.",
+        maxInfoTh: "ราชธานีแห่งแรกของไทยที่ได้รับการยกย่องจาก UNESCO ให้เป็นมรดกโลกอันล้ำค่า"
+      },
+      {
+        placeName: "Chae Son National Park",
+        category: "Camping",
+        notesFr: "Camping au bord du ruisseau thermal de Lampang",
+        notesTh: "กางเต็นท์อุทยานแห่งชาติแจ้ซ้อน ต้มไข่ในบ่อน้ำร้อนธรรมชาติ",
+        lat: 18.8313,
+        lng: 99.4711,
+        budgetPerNight: 100,
+        detailedTipsFr: "Achetez un petit panier d'œufs pour les faire cuire dans l'eau thermale à 80°C du parc.",
+        detailedTipsTh: "ซื้อไข่ไก่/ไข่นกกระทามาต้มในน้ำพุร้อนธรรมชาติ 80 องศา อร่อยกลมกล่อมเป็นเอกลักษณ์",
+        maxInfoFr: "Une merveilleuse harmonie entre source d'eau chaude naturelle et cascade fraîche.",
+        maxInfoTh: "แหล่งท่องเที่ยวทางธรรมชาติระดับท็อปที่ผสมผสานน้ำพุร้อนและน้ำตกเย็นฉ่ำไว้อย่างลงตัว"
       },
       {
         placeName: "Doi Inthanon National Park",
@@ -85,7 +124,7 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         placeName: "Chiang Rai (Wat Rong Khun)",
         category: "Lodging",
         notesFr: "Halte confort à Chiang Rai (Temple Blanc)",
-        notesTh: "พักผ่อนอุ่นสบายในเมืองเชียงรายและชมวัดร่องขุ่นอันวิจิตร",
+        notesTh: "พักผ่อนอุ่นสบายในเมืองเชียงราย et ชมวัดร่องขุ่นอันวิจิตร",
         lat: 19.9101,
         lng: 99.8406,
         budgetPerNight: 500,
@@ -95,30 +134,30 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         maxInfoTh: "ชมศิลปะปูนปั้นสีขาวบริสุทธิ์ของอาจารย์เฉลิมชัย โฆษิตพิพัฒน์"
       },
       {
-        placeName: "Chae Son National Park",
-        category: "Camping",
-        notesFr: "Camping au bord du ruisseau thermal de Lampang",
-        notesTh: "กางเต็นท์อุทยานแห่งชาติแจ้ซ้อน ต้มไข่ในบ่อน้ำร้อนธรรมชาติ",
-        lat: 18.8313,
-        lng: 99.4711,
-        budgetPerNight: 100,
-        detailedTipsFr: "Achetez un petit panier d'œufs pour les faire cuire dans l'eau thermale à 80°C du parc.",
-        detailedTipsTh: "ซื้อไข่ไก่/ไข่นกกระทามาต้มในน้ำพุร้อนธรรมชาติ 80 องศา อร่อยกลมกล่อมเป็นเอกลักษณ์",
-        maxInfoFr: "Une merveilleuse harmonie entre source d'eau chaude naturelle et cascade fraîche.",
-        maxInfoTh: "แหล่งท่องเที่ยวทางธรรมชาติระดับท็อปที่ผสมผสานน้ำพุร้อนและน้ำตกเย็นฉ่ำไว้อย่างลงตัว"
+        placeName: "Kwan Phayao (Phayao Lake)",
+        category: "Lodging",
+        notesFr: "Halte paisible face au grand lac de Phayao",
+        notesTh: "พักผ่อนชิวริมกว๊านพะเยา ชมพระอาทิตย์ตกสะท้อนผิวน้ำที่งดงาม",
+        lat: 19.1623,
+        lng: 99.9024,
+        budgetPerNight: 450,
+        detailedTipsFr: "Dégustez du poisson grillé frais de lac sur les rives animées en admirant le coucher du soleil.",
+        detailedTipsTh: "ลิ้มลองเมนูปลาย่างสดๆ จากกว๊านพะเยา และดื่มด่ำกับพระอาทิตย์ดวงกลมโตตกดินสุดโรแมนติก",
+        maxInfoFr: "Un lac d'eau douce grandiose et mystique entouré de montagnes douces.",
+        maxInfoTh: "กว๊านพะเยา แหล่งน้ำจืดที่ใหญ่ที่สุดในภาคเหนือและเป็นศูนย์รวมวิถีชีวิตคนพะเยา"
       },
       {
-        placeName: "Sukhothai Historical Park",
+        placeName: "Nakhon Sawan (Bueng Boraphet)",
         category: "Lodging",
-        notesFr: "Visite des ruines et berceau de l'histoire thaïe",
-        notesTh: "ปั่นจักรยานชมอุทยานประวัติศาสตร์สุโขทัย มรดกโลกโบราณ",
-        lat: 17.0156,
-        lng: 99.7042,
-        budgetPerNight: 450,
-        detailedTipsFr: "Louez un vélo à l'entrée pour parcourir les grands étangs de lotus au coucher du soleil.",
-        detailedTipsTh: "แนะนำให้เช่าจักรยานปั่นเลาะชมเงาสะท้อนเจดีย์เก่าในสระบัวช่วงเย็น แสงทองส่องสวยงามมาก",
-        maxInfoFr: "Classé à l'UNESCO, c'est l'un des plus précieux trésors historiques d'Asie.",
-        maxInfoTh: "ราชธานีแห่งแรกของไทยที่ได้รับการยกย่องจาก UNESCO ให้เป็นมรดกโลกอันล้ำค่า"
+        notesFr: "Halte confort à Nakhon Sawan",
+        notesTh: "แวะพักผ่อนนครสวรรค์ ชมบึงบอระเพ็ดและชมอุโมงค์สัตว์น้ำบึงบอระเพ็ด",
+        lat: 15.7058,
+        lng: 100.1246,
+        budgetPerNight: 400,
+        detailedTipsFr: "Faites un tour de bateau sur le plus grand marais d'eau douce pour observer les lotus sauvages et oiseaux migrateurs.",
+        detailedTipsTh: "แนะนำให้นั่งเรือชมบัวแดงนับพันดอกและฝูงนกน้ำนานาชนิดตามธรรมชาติรอบบึงบอระเพ็ด",
+        maxInfoFr: "La porte d'accès au Nord, célèbre pour ses nénuphars et sa faune ornithologique.",
+        maxInfoTh: "ดินแดนแห่งปากน้ำโพ แหล่งกำเนิดแม่น้ำเจ้าพระยาและบึงบอระเพ็ดแสนสงบ"
       },
       {
         placeName: "Bangkok",
@@ -195,6 +234,19 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         maxInfoTh: "ปราสาทหินบนภูเขาไฟที่ดับสนิทแล้ว มรดกทางวัฒนธรรมที่งดงามประณีต"
       },
       {
+        placeName: "Chaiyaphum (Tat Ton National Park)",
+        category: "Camping",
+        notesFr: "Bivouac au milieu des cascades sauvages",
+        notesTh: "กางเต็นท์อุทยานแห่งชาติตาดโตน ชื่นชมน้ำตกตาดโตนแสนเย็นสบาย",
+        lat: 15.9811,
+        lng: 102.0334,
+        budgetPerNight: 100,
+        detailedTipsFr: "Idéal pour camper dans la forêt et écouter le bruit de la grande cascade de Tat Ton.",
+        detailedTipsTh: "น้ำตกตาดโตนมีน้ำไหลตลอดปี กางเต็นท์ท่ามกลางไม้ใหญ่อันร่มรื่นและปลอดภัยมาก",
+        maxInfoFr: "Un parc naturel splendide réputé pour ses cascades d'eau pure et ses forêts verdoyantes.",
+        maxInfoTh: "อุทยานแห่งชาติทางตอนเหนือของชัยภูมิที่มีธรรมชาติที่สวยงามเงียบสงบ"
+      },
+      {
         placeName: "Phu Kradueng National Park",
         category: "Camping",
         notesFr: "Randonnée intense et bivouac sur le grand plateau d'Isan",
@@ -211,7 +263,7 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         placeName: "Nam Nao National Park",
         category: "Camping",
         notesFr: "Camping sauvage sous une nuit étoilée pure",
-        notesTh: "กางเต็นท์อุทยานแห่งชาติน้ำหนาว อากาศเย็นฉ่amใต้หมู่ดาวนับล้าน",
+        notesTh: "กางเต็นท์อุทยานแห่งชาติน้ำหนาว อากาศเย็นฉ่ำใต้หมู่ดาวนับล้าน",
         lat: 16.7411,
         lng: 101.5739,
         budgetPerNight: 100,
@@ -232,6 +284,19 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         detailedTipsTh: "เส้นทางเดินชมลานหินปุ่มและลานหินแตก ควรระวังร่องลึกตามซอกหินและพื้นผิวหินที่ลื่นชื้น",
         maxInfoFr: "Un ancien bastion historique des maquisards combinant géologie fantastique et forêts de pins.",
         maxInfoTh: "ดินแดนแห่งยุทธภูมิโบราณที่ธรรมชาติสร้างปฏิติกรรมลานหินรอยแตกเป็นเอกลักษณ์"
+      },
+      {
+        placeName: "Nakhon Sawan (Bueng Boraphet)",
+        category: "Lodging",
+        notesFr: "Halte confort à Nakhon Sawan",
+        notesTh: "แวะพักผ่อนนครสวรรค์ ชมบึงบอระเพ็ดและชมอุโมงค์สัตว์น้ำบึงบอระเพ็ด",
+        lat: 15.7058,
+        lng: 100.1246,
+        budgetPerNight: 400,
+        detailedTipsFr: "Faites un tour de bateau sur le plus grand marais d'eau douce pour observer les lotus sauvages et oiseaux migrateurs.",
+        detailedTipsTh: "แนะนำให้นั่งเรือชมบัวแดงนับพันดอกและฝูงนกน้ำนานาชนิดตามธรรมชาติรอบบึงบอระเพ็ด",
+        maxInfoFr: "La porte d'accès au Nord, célèbre pour ses nénuphars et sa faune ornithologique.",
+        maxInfoTh: "ดินแดนแห่งปากน้ำโพ แหล่งกำเนิดแม่น้ำเจ้าพระยาและบึงบอระเพ็ดแสนสงบ"
       },
       {
         placeName: "Bangkok",
@@ -263,7 +328,7 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         lat: 13.5266,
         lng: 100.3161,
         budgetPerNight: 0,
-        detailedTipsFr: "Emportez du matériel étanche et des sacs étanches étanches pour vos appareils photo.",
+        detailedTipsFr: "Emportez du matériel étanche et des sacs étanches pour vos appareils photo.",
         detailedTipsTh: "เตรียมถุงกันน้ำหรือเคสกันน้ำสำหรับโทรศัพท์และกล้อง เพื่อความพร้อมสำหรับการไปลุยน้ำทะเล",
         maxInfoFr: "Une escale confortable chez l'habitant avant la longue route côtière.",
         maxInfoTh: "ออกเดินทางจากสมุทรสาคร มุ่งหน้าลัดเลาะลงสู่ดินแดนคาบสมุทรด้ามขวานทอง"
@@ -308,6 +373,19 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         maxInfoTh: "ชายหาดสวยใสที่อยู่ในความดูแลของทหารกองบิน 5 มั่นใจได้ในความปลอดภัยและสะอาดเป็นระเบียบ"
       },
       {
+        placeName: "Chumphon (Thung Wua Laen Beach)",
+        category: "Lodging",
+        notesFr: "Escale côtière sur les plages de sable blanc de Chumphon",
+        notesTh: "พักผ่อนริมหาดทุ่งวัวแล่น ชุมพร สวรรค์หาดทรายขาวละเอียดแสนสงบ",
+        lat: 10.5634,
+        lng: 99.2731,
+        budgetPerNight: 500,
+        detailedTipsFr: "Une plage magique réputée pour ses fruits de mer frais cuisinés sur la plage et son coucher de soleil somptueux.",
+        detailedTipsTh: "ลองลิ้มรสหมึกย่างน้ำจิ้มซีฟู้ดรสเผ็ดร้อน และเดินเล่นรับลมโชยบนทรายขาวนุ่มเท้ายามพลบค่ำ",
+        maxInfoFr: "Le paradis préservé du Sud côtier, berceau des récifs coralliens protégés.",
+        maxInfoTh: "ประตูสู่ภาคใต้ที่มีแนวชายหาดยาว ทะเลน้ำตื้นคลื่นสงบสำหรับครอบครัว"
+      },
+      {
         placeName: "Khao Sok National Park (Cheow Lan Lake)",
         category: "Camping",
         notesFr: "Bivouac et cabanes flottantes sur le grand lac",
@@ -345,6 +423,32 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         detailedTipsTh: "ลานกางเต็นท์เงียบสงบตั้งอยู่ในดงสนใหญ่ร่มรื่นริมฝั่งทะเล เหมาะแก่การตั้งแคมป์สโลว์ไลฟ์",
         maxInfoFr: "Un parc côtier paisible faisant face à une myriade d'îles désertes.",
         maxInfoTh: "อุทยานชายฝั่งทะเลอันดามันที่ยังคงความธรรมชาติอันพิสุทธิ์ ปราศจากความวุ่นวาย"
+      },
+      {
+        placeName: "Chumphon (Thung Wua Laen Return)",
+        category: "Lodging",
+        notesFr: "Halte de retour confortable à Chumphon",
+        notesTh: "แวะพักค้างคืนที่ชุมพรฝั่งขากลับ ชิมสตรีทฟู้ดปักษ์ใต้แท้ๆ",
+        lat: 10.5634,
+        lng: 99.2731,
+        budgetPerNight: 500,
+        detailedTipsFr: "Idéal pour rompre la longue route de retour depuis la côte d'Andaman vers le golfe de Thaïlande.",
+        detailedTipsTh: "แวะนอนเพื่อเซฟร่างกายก่อนจะยิงยาวขากลับ แนะนำลองแกงส้มปักษ์ใต้รสเข้มข้นจัดจ้าน",
+        maxInfoFr: "Une ville paisible réputée pour sa cuisine locale authentique.",
+        maxInfoTh: "จุดแวะพักครึ่งทางของขาล่องใต้-กรุงเทพฯ ที่ดีที่สุดริมหาดแสนรัก"
+      },
+      {
+        placeName: "Hua Hin Night Market",
+        category: "Lodging",
+        notesFr: "Nuit confortable à Hua Hin avant le retour",
+        notesTh: "พักผ่อนหัวหิน ตะลุยชิมซีฟู้ดริมทะเลและเดินเที่ยวตลาดโต้รุ่งหัวหิน",
+        lat: 12.5684,
+        lng: 99.9576,
+        budgetPerNight: 800,
+        detailedTipsFr: "Délicieux repas final de crustacés grillés face à l'océan.",
+        detailedTipsTh: "ฉลองมื้อค่ำก่อนสิ้นสุดทริปด้วยอาหารทะเลปิ้งย่างสดใหม่ที่ตลาดโต้รุ่งชื่อดัง",
+        maxInfoFr: "La station balnéaire historique favorite pour clore le voyage de la péninsule.",
+        maxInfoTh: "เมืองตากอากาศชายทะเลสุดชิคที่เป็นจุดเชื่อมความอุ่นใจก่อนถึงกรุงเทพฯ"
       },
       {
         placeName: "Bangkok",
@@ -434,6 +538,19 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         maxInfoTh: "ชุมชนชายแดนที่เปี่ยมด้วยเสน่ห์และศรัทธาพุทธศาสนาริมแม่น้ำซองกาเลีย"
       },
       {
+        placeName: "Thong Pha Phum Town",
+        category: "Lodging",
+        notesFr: "Halte au pied des montagnes de l'Ouest",
+        notesTh: "แวะพักเมืองทองผาภูมิ ผ่อนคลายร่างกายก่อนขึ้นเขาสูงชัน",
+        lat: 14.7411,
+        lng: 98.6421,
+        budgetPerNight: 500,
+        detailedTipsFr: "Une étape parfaite pour vérifier la pression des pneus et faire le plein d'essence avant d'entamer les routes de montagne.",
+        detailedTipsTh: "แวะพักนอนเติมพลังและตรวจสอบเครื่องยนต์ระดับน้ำมันก่อนไต่เส้นทางคดเคี้ยวพังพอนปิล๊อก",
+        maxInfoFr: "Un adorable petit bourg de montagne traversé par la rivière Kwai Noi.",
+        maxInfoTh: "เมืองเล็กแสนสงบริมแม่น้ำแควน้อยที่เต็มไปด้วยอากาศบริสุทธิ์และป่าไม้หนาทึบ"
+      },
+      {
         placeName: "Pilok Mine (Etong Village)",
         category: "Lodging",
         notesFr: "Séjour dans le village embrumé de la mine d'étain",
@@ -460,6 +577,19 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         maxInfoTh: "ผืนป่าตะวันตกอันเป็นแหล่งที่อยู่ของนกและสัตว์ป่าหายากนานาชนิด"
       },
       {
+        placeName: "Kanchanaburi Town (River Kwai)",
+        category: "Lodging",
+        notesFr: "Halte historique près du pont de la rivière Kwai",
+        notesTh: "พักผ่อนเมืองกาญจนบุรี ย้อนรอยประวัติศาสตร์สะพานข้ามแม่น้ำแคว",
+        lat: 14.0411,
+        lng: 99.5034,
+        budgetPerNight: 600,
+        detailedTipsFr: "Profitez d'un dîner au bord de l'eau en admirant le célèbre pont historique illuminé le soir.",
+        detailedTipsTh: "เดินถ่ายรูปบนสะพานรถไฟสายมรณะโบราณ และลิ้มรสแกงป่ารสเด็ดในร้านอาหารริมน้ำ",
+        maxInfoFr: "La cité historique majeure de l'Ouest, riche en émotions et en paysages fluviaux.",
+        maxInfoTh: "เมืองประวัติศาสตร์และแหล่งท่องเที่ยวเชิงอนุรักษ์ระดับโลกที่ใครๆ ก็ต้องหลงรัก"
+      },
+      {
         placeName: "Bangkok",
         category: "Lodging",
         notesFr: "Fin de l'itinéraire de l'Ouest sauvage, retour",
@@ -467,10 +597,10 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         lat: 13.7563,
         lng: 100.5018,
         budgetPerNight: 800,
-        detailedTipsFr: "Un excellent repas de poissons de rivière à Kanchanaburi marquera une fin de parcours inoubliable.",
-        detailedTipsTh: "แวะทานปลาคังหรือปลาแม่น้ำรสจัดจ้านตามแพอาหารในเมืองกาญจนบุรีส่งท้ายความประทับใจ",
-        maxInfoFr: "Fin d'une aventure époustouflante entre canyons, voies ferrées de la mort et brume.",
-        maxInfoTh: "จบทริปตะวันตกสายลุยพรมแดนอย่างปลอดภัย พร้อมรูปภาพธรรมชาติสวยสะกดใจ"
+        detailedTipsFr: "Profitez d'un dernier massage thaï traditionnel pour détendre vos muscles fatigués par la route.",
+        detailedTipsTh: "จบทริปตะวันตกแสนสุขใจด้วยการนวดเท้าผ่อนคลายและเก็บภาพความทรงจำที่สวยงามเต็มกระเป๋า",
+        maxInfoFr: "Fin de votre fantastique aventure fluviale et historique.",
+        maxInfoTh: "ปิดฉากการเดินทางย้อนประวัติศาสตร์ป่าตะวันตกและขุนเขาปิล๊อกแสนวิเศษ"
       }
     ]
   },
@@ -495,6 +625,19 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         maxInfoTh: "เตรียมกล้องถ่ายภาพแบตสำรองให้พร้อมสำหรับทิวทัศน์ริมฝั่งโขงและน่านลอยฟ้า"
       },
       {
+        placeName: "Lopburi (Monkey Temple)",
+        category: "Lodging",
+        notesFr: "Halte historique à la cité des singes de Lopburi",
+        notesTh: "พักผ่อนลพบุรี ย้อนรอยประวัติศาสตร์นารายณ์ราชนิเวศน์และฝูงลิงแสนซน",
+        lat: 14.7972,
+        lng: 100.6534,
+        budgetPerNight: 500,
+        detailedTipsFr: "Faites attention à vos affaires près du Phra Prang Sam Yod, car les singes adorent les objets brillants et la nourriture.",
+        detailedTipsTh: "ระมัดระวังแว่นตา กล้องถ่ายรูป และสัมภาระต่างๆ ขณะเข้าชมโบราณสถานสามยอดเนื่องจากลิงเยอะและว่องไวมาก",
+        maxInfoFr: "Une ancienne cité khmère puis capitale secondaire sous le règne du roi Narai au 17ème siècle.",
+        maxInfoTh: "เมืองประวัติศาสตร์เก่าแก่ที่มีหลักฐานศิลปะทวารวดี ขอม ละโว้ จนถึงอยุธยา"
+      },
+      {
         placeName: "Khao Kho (Phetchabun)",
         category: "Camping",
         notesFr: "Camping au-dessus de la mer de nuages de Khao Kho",
@@ -515,10 +658,23 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         lat: 17.8942,
         lng: 101.6536,
         budgetPerNight: 550,
-        detailedTipsFr: "Louez un vélo pour explorer la rue piétonne en bois et déguster des brochettes de crevettes du Mékong.",
+        detailedTipsFr: "Louez un vélo pour explorer la rue piétonne en bois et dégustez des brochettes de crevettes du Mékong.",
         detailedTipsTh: "เช่าจักรยานปั่นเลียบตลิ่งแม่น้ำโขงชมอาทิตย์ลับทิวเขาลาว และเดินถนนคนเดินเชียงคานช่วงเย็น",
         maxInfoFr: "Une bourgade historique réputée pour ses coutumes bouddhistes et ses sourires.",
         maxInfoTh: "ชุมชนริมน้ำวัฒนธรรมอีสาน-ล้านนาที่เปี่ยมด้วยความเป็นมิตรและเรียบง่าย"
+      },
+      {
+        placeName: "Nong Khai (Mekong Promenade)",
+        category: "Lodging",
+        notesFr: "Escale relaxante le long de la promenade du Mékong",
+        notesTh: "พักผ่อนริมโขงหนองคาย เดินเล่นชมสะพานมิตรภาพไทย-ลาว",
+        lat: 17.8785,
+        lng: 102.7420,
+        budgetPerNight: 600,
+        detailedTipsFr: "Ne manquez pas le curieux parc de sculptures mystiques de Sala Keoku et ses statues monumentales.",
+        detailedTipsTh: "เที่ยวชมศาลาแก้วกู่ สวนประติมากรรมคอนกรีตขนาดมหึมาแฝงแนวคิดทางศาสนาและปรัชญาชวนทึ่ง",
+        maxInfoFr: "Une cité frontalière chaleureuse offrant une vue imprenable sur le fleuve majestueux.",
+        maxInfoTh: "จังหวัดท่องเที่ยวริมฝั่งแม่น้ำโขงที่มีวัฒนธรรมงดงามและอาหารท้องถิ่นรสชาติดี"
       },
       {
         placeName: "Phu Tok Temple (Bueng Kan)",
@@ -532,6 +688,45 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         detailedTipsTh: "การขึ้นบันไดเวียนรอบภูหินทราย ใช้สติและความระมัดระวัง ห้ามส่งเสียงดังในเขตสถานปฏิบัติธรรม",
         maxInfoFr: "Une prouesse de construction artisanale spirituelle représentant les chemins de l'illumination.",
         maxInfoTh: "พุทธสถานปฏิบัติธรรมที่สร้างบันไดขึ้นเขาระดับ 7 ชั้น ท้าทายความมุ่งมั่นและศรัทธา"
+      },
+      {
+        placeName: "Nong Khai (Mekong Return)",
+        category: "Lodging",
+        notesFr: "Halte de retour sur la rive du Mékong",
+        notesTh: "แวะนอนผ่อนคลายที่หนองคาย ชิมแหนมเนืองต้นตำรับ",
+        lat: 17.8785,
+        lng: 102.7420,
+        budgetPerNight: 600,
+        detailedTipsFr: "Idéal pour déguster le célèbre Daeng Namnuang traditionnel et se détendre avant les étapes de montagne.",
+        detailedTipsTh: "ลิ้มลองแดงแหนมเนืองเจ้าดังแสนอร่อย เดินเล่นริมเขื่อนโขงรับลมเย็นๆ สลายความเมื่อยล้า",
+        maxInfoFr: "Une halte commode et paisible sur le trajet de retour vers l'Ouest.",
+        maxInfoTh: "เมืองริมโขng แสนสงบที่เหมาะแก่การแวะพักสะสมพลังงานสำรอง"
+      },
+      {
+        placeName: "Dan Sai (Loei)",
+        category: "Lodging",
+        notesFr: "Halte culturelle au pays du festival Phi Ta Khon",
+        notesTh: "พักผ่อนด่านซ้าย เลย เยี่ยมเยือนพิพิธภัณฑ์ผีตาโขนอันลือชื่อ",
+        lat: 17.2713,
+        lng: 101.1478,
+        budgetPerNight: 500,
+        detailedTipsFr: "Visitez le Wat Neramit Wipatsana, un magnifique temple en latérite rouge et son jardin zen.",
+        detailedTipsTh: "เข้ากราบสักการะพระธาตุศรีสองรักและชมวัดเนรมิตวิปัสสนา วัดศิลาแลงโบราณอันเงียบสงบ",
+        maxInfoFr: "Une paisible vallée montagneuse imprégnée de légendes et de traditions colorées.",
+        maxInfoTh: "เมืองเล็กกลางหุบเขาดินแดนสัจจะและไมตรี แหล่งกำเนิดเทศกาลหน้ากากผีตาโขนดั้งเดิม"
+      },
+      {
+        placeName: "Phrae (Old Town Teak Mansion)",
+        category: "Lodging",
+        notesFr: "Nuit dans la cité authentique du teck de Phrae",
+        notesTh: "พักผ่อนเมืองแพร่ ชมคุ้มเจ้าหลวงและบ้านขนมปังขิงเรือนไม้สักโบราณ",
+        lat: 18.1444,
+        lng: 100.1417,
+        budgetPerNight: 500,
+        detailedTipsFr: "Explorez la majestueuse maison en teck de Khum Vongburi et admirez ses fines dentelles de bois roses.",
+        detailedTipsTh: "แวะชมคุ้มวงศ์บุรี อาคารไม้สักสีชมพูสไตล์ล้านนาผสมยุโรปที่มีลวดลายฉลุไม้อ่อนช้อยงดงามตา",
+        maxInfoFr: "L'une des plus anciennes cités du Nord de la Thaïlande, restée à l'écart du tourisme de masse.",
+        maxInfoTh: "เมืองทางผ่านมรดกป่าไม้สักทองสยามที่รักษารากเหง้าสถาปัตยกรรมแป้นเกล็ดไว้สมบูรณ์"
       },
       {
         placeName: "Doi Phu Kha National Park",
@@ -560,6 +755,19 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         maxInfoTh: "เมืองกระซิบรักที่รักษาขนบธรรมเนียมล้านนาและประวัติศาสตร์เมืองเก่าไว้อย่างอบอุ่น"
       },
       {
+        placeName: "Phrae (Return Escale)",
+        category: "Lodging",
+        notesFr: "Escale de retour confortable à Phrae",
+        notesTh: "แวะพักค้างคืนที่แพร่ขากลับ เติมพลังร้านกาแฟใต้ต้นไม้ใหญ่",
+        lat: 18.1444,
+        lng: 100.1417,
+        budgetPerNight: 500,
+        detailedTipsFr: "Une étape pratique pour casser la longue descente des montagnes de Nan.",
+        detailedTipsTh: "นอนพักผ่อนเซฟหัวใจและสายตาจากการขับรถขึ้นลงทางคดเคี้ยว ชิมข้าวกั้นจิ้นอาหารเหนือพื้นเมืองแท้ๆ",
+        maxInfoFr: "Une charmante cité offrant des haltes calmes et bon marché.",
+        maxInfoTh: "เมืองไม้สักแสนอบอุ่นที่เป็นรอยเชื่อมต่อระหว่างภูเขาน่านและที่ราบภาคกลาง"
+      },
+      {
         placeName: "Phu Hin Rong Kla National Park",
         category: "Camping",
         notesFr: "Dernière escale sauvage sur les roches fracturées",
@@ -570,7 +778,20 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         detailedTipsFr: "Portez des vêtements d'extérieur adéquats pour résister au brouillard matinal persistant.",
         detailedTipsTh: "อุณหภูมิค่อนข้างต่ำตลอดปี แนะนำให้เตรียมเสื้อกันหนาวกันชื้นสำหรับการกางเต็นท์ในป่าสน",
         maxInfoFr: "Un parc géologique majestueux mariant grès plissé et histoire révolutionnaire.",
-        maxInfoTh: "ลานหินปุ่มและประวัติศาสตร์การเมืองโบราณ คลุมด้วยมอชและเฟิร์นเขียวขจีตลอดปี"
+        maxInfoTh: "ลานหินปุ่มและประวัติศาสตร์การเมืองโบราณ คลุมด้วยมอสและเฟิร์นเขียวขจีตลอดปี"
+      },
+      {
+        placeName: "Nakhon Sawan",
+        category: "Lodging",
+        notesFr: "Halte historique au confluent du fleuve Chao Phraya",
+        notesTh: "พักผ่อนนครสวรรค์ ชมต้นกำเนิดแม่น้ำเจ้าพระยาที่สองสีสบกัน",
+        lat: 15.7000,
+        lng: 100.1167,
+        budgetPerNight: 550,
+        detailedTipsFr: "Allez admirer la spectaculaire pagode d'or de Wat Khiriwong nichée au sommet de la colline offrant une vue à 360° sur la ville.",
+        detailedTipsTh: "กราบไหว้พระจุฬามณีเจดีย์บนยอดเขาคีรีวงศ์ ส่องวิวเมืองปากน้ำโพและลำน้ำสองสีที่ตัดกันงดงาม",
+        maxInfoFr: "La porte du Nord, là où les rivières Ping, Wang, Yom et Nan s'unissent pour donner naissance à la Chao Phraya.",
+        maxInfoTh: "เมืองสี่แควปากน้ำโพ ชุมชนการค้าโบราณที่มีสีสันวัฒนธรรมจีนผสมผสานอย่างงดงาม"
       },
       {
         placeName: "Bangkok",
@@ -634,6 +855,19 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         maxInfoTh: "โบราณสถานขอมแปรรูปทรงขอมโบราณ แหล่งท่องเที่ยวประวัติศาสตร์คู่เมืองลพบุรี"
       },
       {
+        placeName: "Nakhon Sawan (Chao Phraya Source)",
+        category: "Lodging",
+        notesFr: "Halte relaxante au confluent des rivières",
+        notesTh: "แวะนอนนครสวรรค์ ชมจุดกำเนิดแม่น้ำสายหลักของสยามประเทศ",
+        lat: 15.7000,
+        lng: 100.1167,
+        budgetPerNight: 500,
+        detailedTipsFr: "Profitez-en pour déguster les excellents desserts locaux traditionnels aux haricots mungo.",
+        detailedTipsTh: "ลองชิมโมจินครสวรรค์และลูกชิ้นปลากรายของดีเมืองปากน้ำโพแสนเหนียวนุ่มรสอร่อยเลิศ",
+        maxInfoFr: "La porte fluviale d'accès au Nord, parfaite pour se reposer sans conduire de longues heures.",
+        maxInfoTh: "เมืองปากน้ำโพจุดแบ่งแม่น้ำสี่สาย ปิง วัง ยม น่าน มารวมกันเป็นแม่น้ำเจ้าพระยา"
+      },
+      {
         placeName: "Ramkhamhaeng National Park",
         category: "Camping",
         notesFr: "Camping d'altitude sauvage sur le mont Khao Luang",
@@ -686,6 +920,19 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         maxInfoTh: "อนุสรณ์สถานสืบ นาคะเสถียร แหล่งพำนักของเสือโคร่ง ควายป่า และช้างป่าตามธรรมชาติที่ใหญ่ที่สุด"
       },
       {
+        placeName: "Suphan Buri Town (Wat Pa Lelai)",
+        category: "Lodging",
+        notesFr: "Halte culturelle dans les plaines de Suphan Buri",
+        notesTh: "พักผ่อนเมืองสุพรรณบุรี นมัสการหลวงพ่อโตวัดป่าเลไลยก์ชื่อดัง",
+        lat: 14.4744,
+        lng: 100.1167,
+        budgetPerNight: 500,
+        detailedTipsFr: "Explorez la rue piétonne du vieux marché centenaire de Sam Chuk pour déguster des en-cas ancestraux délicieux.",
+        detailedTipsTh: "แวะเดินเล่นตลาดสามชุกร้อยปี ย้อนอดีตบรรยากาศห้องแถวไม้ดั้งเดิมและชิมลูกชิ้นยักษ์แสนเลื่องชื่อ",
+        maxInfoFr: "Une cité riche d'art, de musique traditionnelle et d'histoire littéraire légendaire.",
+        maxInfoTh: "เมืองอู่ข้าวอู่น้ำภาคกลางที่มีวัดเก่าแก่อันเป็นต้นกำเนidวรรณคดีขุนช้างขุนแผน"
+      },
+      {
         placeName: "Bangkok",
         category: "Lodging",
         notesFr: "Retour à Bangkok, restitution et massage final",
@@ -705,7 +952,7 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
     nameFr: "🍜 Les Secrets culinaires (Gastronomie)",
     nameTh: "🍜 เส้นทางสตรีทฟู้ดและวัฒนธรรมอาหารไทย",
     descFr: "Un road trip gustatif reliant les marchés flottants du centre, les villages de pêcheurs côtiers et la riche gastronomie du littoral.",
-    descTh: "เส้นทางนักกินตะลุยตลาดน้ำดั้งเดิม แวะกินอาหารทะเลสดริมฝั่งอ่าวไทย และเรียนรู้เคล็ดลับรสชาติไทยแท้",
+    descTh: "Snack-bar d'autoroute d'antan, lèche-doigt de rue à Chinatown, dégustation de crevettes de rivière et d'épices côtières.",
     steps: [
       {
         placeName: "123/99 Sarintara 1 Village, Samut Sakhon",
@@ -716,7 +963,7 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         lng: 100.3161,
         budgetPerNight: 0,
         detailedTipsFr: "Dégustez au départ un excellent curry de fruits de mer proposé dans les petits villages de pêcheurs de Samut Sakhon.",
-        detailedTipsTh: "เริ่มออกเดินทางจากสมุทรสาคร แนะนำให้ลองชิมแกงคั่วส้มไข่ริวกิวหรืออาหารทะเลสดจากประมงชายฝั่ง",
+        detailedTipsTh: "เริ่มออกเดินทาง from สมุทรสาคร แนะนำให้ลองชิมแกงคั่วส้มไข่ริวกิวหรืออาหารทะเลสดจากประมงชายฝั่ง",
         maxInfoFr: "Départ de votre grand safari culinaire en Thaïlande.",
         maxInfoTh: "เปิดประสบการณ์โรดทริปสายอาหารรสเลิศ สู่ต้นตำรับวัตถุดิบคุณภาพในชุมชน"
       },
@@ -797,6 +1044,19 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         detailedTipsTh: "กางเต็นท์ในแนวทิวสนธรรมชาติริมหาดกว้างขวาง ปิ้งย่างซีฟู้ดสดท่ามกลางลมทะเลพัดเบาๆ เย็นสบาย",
         maxInfoFr: "Un décor fantastique mariant montagne, mer tropicale et sérénité absolue.",
         maxInfoTh: "จุดตั้งแคมป์ริมหาดอุทยานที่เงียบสงบ หลีกหนีความวุ่นวาย โอบล้อมด้วยภูเขา calcaire สวยงาม"
+      },
+      {
+        placeName: "Phetchaburi Town (Local Desserts)",
+        category: "Lodging",
+        notesFr: "Halte gourmande au pays des desserts artisanaux",
+        notesTh: "แวะเมืองเพชรบุรี ชิมขนมหม้อแกงไข่ทองคำสูตรดั้งเดิมหวานมันเข้มข้น",
+        lat: 13.1111,
+        lng: 99.9411,
+        budgetPerNight: 500,
+        detailedTipsFr: "Goutez au célèbre Khanom Mo Gaeng traditionnel au sucre de palme sauvage et gousses de tamarin frit.",
+        detailedTipsTh: "เลือกซื้อขนมหม้อแกงเผือก ทองหยิบ ทองหยอด เม็ดขนุน คุ้มค่าและรสชาติเข้มข้นนุ่มนวลจากกะทิสดแท้ๆ",
+        maxInfoFr: "La capitale nationale des confiseries thaïes traditionnelles cuisinées au sucre de palme pur.",
+        maxInfoTh: "สวรรค์แห่งขนมหวานโบราณ แหล่งวัตถุดิบน้ำตาลโตนดชั้นเยี่ยมประวัติศาสตร์"
       },
       {
         placeName: "Bangkok",
@@ -897,6 +1157,19 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         detailedTipsTh: "เข้ากราบสักการะองค์หลวงพ่อพระพุทธโสธรในโบสถ์หลังใหม่ที่สร้างด้วยหินอ่อนคาร์ราราอิตาลีสุดหรูหรา",
         maxInfoFr: "L'un des temples bouddhistes les plus vénérés du pays, abritant la statue miraculeuse du Bouddha Sothon.",
         maxInfoTh: "พระอารามหลวงชั้นโทริมแม่น้ำบางปะกง ศูนย์รวมจิตใจของชาวแปดริ้วและชาวไทยทั่วประเทศ"
+      },
+      {
+        placeName: "Amphawa Riverside (Samut Songkhram)",
+        category: "Lodging",
+        notesFr: "Escale spirituelle au bord des canaux paisibles d'Amphawa",
+        notesTh: "แวะนอนอัมพวา พักฟื้นสมาธิท่ามกลางสายน้ำและวัดเก่าริมคลองอันเงียบสงบ",
+        lat: 13.4144,
+        lng: 100.0034,
+        budgetPerNight: 500,
+        detailedTipsFr: "Profitez de cette escale paisible pour faire l'aumône aux moines itinérants qui rament le long des canaux le matin.",
+        detailedTipsTh: "ตื่นเช้าทำบุญตักบาตรริมท่าน้ำกับพระสงฆ์ที่พายเรือบิณฑบาต สัมผัสวิถีพุทธดั้งเดิมแสนอบอุ่นใจ",
+        maxInfoFr: "Un sanctuaire de paix au bord de l'eau, idéal pour conserver son état d'esprit calme et détendu.",
+        maxInfoTh: "ชุมชนริมคลองที่มีรอยต่อธรรมชาติอันสมบูรณ์ เหมาะแก่การนั่งทำสมาธิพักกายใจ"
       },
       {
         placeName: "Kaeng Krachan National Park",
@@ -1138,6 +1411,19 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         maxInfoTh: "อุทยานยอดนิยมฝั่งตะวันออก อุดมไปด้วยพันธุ์ไม้ป่าดิบแล้งและสัตว์ป่าหลากหลายพรรณ"
       },
       {
+        placeName: "Bang Khla Town (Mangoes & River)",
+        category: "Lodging",
+        notesFr: "Escale paisible le long de la rivière Bang Pakong",
+        notesTh: "แวะพักบางคล้า ฉะเชิงเทรา ชิมมะม่วงน้ำดอกไม้แสนอร่อยและชมวัดโพธิ์บางคล้าค้างคาวแม่ไก่ยักษ์",
+        lat: 13.7225,
+        lng: 101.2081,
+        budgetPerNight: 500,
+        detailedTipsFr: "Prenez un petit bateau pour observer les milliers de chauves-souris géantes (renards volants) suspendues aux arbres centenaires du temple Wat Pho Bang Khla.",
+        detailedTipsTh: "เช่าเรือล่องชมทัศนียภาพรอบเกาะลัด ชมค้างคาวแม่ไก่ตัวโตเกาะเต็มต้นไม้ใหญ่อายุหลายร้อยปีที่วัดโพธิ์บางคล้าอย่างอัศจรรย์",
+        maxInfoFr: "Un charmant village fluvial connu pour ses mangues de renommée mondiale et son atmosphère surannée.",
+        maxInfoTh: "เมืองเกษตรกรรมและริมแม่น้ำบางปะกงอันเงียบสงบ แหล่งผลิตมะม่วงส่งออกระดับพรีเมียมของประเทศ"
+      },
+      {
         placeName: "Bangkok",
         category: "Lodging",
         notesFr: "Retour à la capitale, fin du road trip côtier",
@@ -1154,6 +1440,27 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
   }
 ];
 
+function getLocalHaversineDistance(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  if (!lat1 || !lng1 || !lat2 || !lng2) return 0;
+  const R = 6371; // Earth's radius in km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const a = 
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+    Math.sin(dLng / 2) * Math.sin(dLng / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
+function getLocalDrivingHours(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const geoDist = getLocalHaversineDistance(lat1, lng1, lat2, lng2);
+  if (geoDist === 0) return 0;
+  const roadKm = Math.round(geoDist * 1.3);
+  const minutes = Math.round((roadKm / 75) * 60);
+  return parseFloat((minutes / 60).toFixed(1));
+}
+
 export function generatePresetItinerary(
   routeId: string,
   durationWeeks: 2 | 4 | 6,
@@ -1163,108 +1470,137 @@ export function generatePresetItinerary(
   const totalDays = durationWeeks * 7;
   const rawSteps = template.steps;
 
-  // We want to scale these steps to span exactly totalDays.
-  // Day 1 is always the starting point: Samut Sakhon.
-  // Last Day (totalDays) is always Bangkok.
-  // Intermediate steps will be spaced out evenly.
-  const items: ItineraryItem[] = [];
+  // We initially select step indices based on target weeks
+  const initialIndices: number[] = [0];
+  const midCount = rawSteps.length - 2;
 
-  // 1. Point de départ (Samut Sakhon)
-  const startStep = rawSteps[0];
-  items.push({
-    id: `${routeId}-step-1`,
-    placeName: startStep.placeName,
-    day: 1,
-    category: startStep.category,
-    notes: lang === 'fr' ? startStep.notesFr : startStep.notesTh,
-    lat: startStep.lat,
-    lng: startStep.lng,
-    duration: lang === 'fr' ? "1 nuit" : "1 คืน",
-    budget: startStep.budgetPerNight,
-    detailedTips: lang === 'fr' ? startStep.detailedTipsFr : startStep.detailedTipsTh,
-    maxInfo: lang === 'fr' ? startStep.maxInfoFr : startStep.maxInfoTh
-  });
-
-  // Intermediate steps (excluding start and end)
-  const midSteps = rawSteps.slice(1, rawSteps.length - 1);
-  const endStep = rawSteps[rawSteps.length - 1];
-
-  // Depending on weeks, we select a subset of intermediate steps to keep it organic
-  let selectedMidSteps = [...midSteps];
   if (durationWeeks === 2) {
-    // Keep 3 intermediate steps for a 2-week trip
-    selectedMidSteps = [midSteps[0], midSteps[Math.floor(midSteps.length / 2)], midSteps[midSteps.length - 1]];
+    // Propose up to 3 intermediate indices
+    if (midCount > 0) {
+      const idx1 = 1;
+      const idx3 = rawSteps.length - 2;
+      const idx2 = Math.floor(rawSteps.length / 2);
+      const mids = Array.from(new Set([idx1, idx2, idx3])).sort((a, b) => a - b);
+      initialIndices.push(...mids);
+    }
   } else if (durationWeeks === 4) {
-    // Keep 5 intermediate steps
-    selectedMidSteps = midSteps.slice(0, 5);
+    // Propose up to 5 intermediate indices
+    if (midCount > 0) {
+      if (midCount <= 5) {
+        for (let i = 1; i <= midCount; i++) {
+          initialIndices.push(i);
+        }
+      } else {
+        for (let i = 0; i < 5; i++) {
+          const idx = 1 + Math.floor((i / 4) * (midCount - 1));
+          initialIndices.push(idx);
+        }
+      }
+    }
   } else {
-    // Keep all intermediate steps for 6 weeks
-    selectedMidSteps = midSteps;
+    // 6 weeks: keep all intermediate steps
+    for (let i = 1; i < rawSteps.length - 1; i++) {
+      initialIndices.push(i);
+    }
   }
 
-  // Calculate day numbers evenly spaced between Day 1 and Last Day (totalDays)
-  // For instance, if we have N intermediate steps, we want day numbers ranging between 2 and totalDays - 1.
-  const stepCount = selectedMidSteps.length;
+  // Ensure last step index is included
+  if (!initialIndices.includes(rawSteps.length - 1)) {
+    initialIndices.push(rawSteps.length - 1);
+  }
+
+  // Unique and sorted indices
+  const selectedIndices = Array.from(new Set(initialIndices)).sort((a, b) => a - b);
+
+  // Dynamic Safety Filter: If any consecutive steps have > 3.0h of driving,
+  // we must insert their bypassed intermediate steps from the template to act as relays!
+  let idx = 0;
+  while (idx < selectedIndices.length - 1) {
+    const idxA = selectedIndices[idx];
+    const idxB = selectedIndices[idx + 1];
+    const stepA = rawSteps[idxA];
+    const stepB = rawSteps[idxB];
+
+    const hours = getLocalDrivingHours(stepA.lat, stepA.lng, stepB.lat, stepB.lng);
+
+    if (hours > 3.0 && idxB - idxA > 1) {
+      // Find the middle index to split the long driving leg
+      const midIdx = Math.floor((idxA + idxB) / 2);
+      selectedIndices.splice(idx + 1, 0, midIdx);
+      // Recheck from current index to ensure the first half is also safe
+    } else {
+      idx++;
+    }
+  }
+
+  const items: ItineraryItem[] = [];
+  const finalSteps = selectedIndices.map(index => rawSteps[index]);
+  const stepCount = finalSteps.length;
+
   for (let i = 0; i < stepCount; i++) {
-    const step = selectedMidSteps[i];
-    // Linearly distribute day numbers between Day 4 and Day (totalDays - 4)
-    const dayProgress = stepCount > 1 ? i / (stepCount - 1) : 0.5;
-    const minDay = 4;
-    const maxDay = totalDays - 4;
-    const calculatedDay = Math.round(minDay + dayProgress * (maxDay - minDay));
-    
+    const step = finalSteps[i];
+
+    // Day calculation linearly distributed
+    let calculatedDay = 1;
+    if (i === 0) {
+      calculatedDay = 1;
+    } else if (i === stepCount - 1) {
+      calculatedDay = totalDays;
+    } else {
+      const dayProgress = stepCount > 2 ? (i - 1) / (stepCount - 2) : 0.5;
+      const minDay = 4;
+      const maxDay = totalDays - 4;
+      calculatedDay = Math.round(minDay + dayProgress * (maxDay - minDay));
+    }
+
     // Estimate stay duration based on gap or preset weeks
     const calculatedNights: number = durationWeeks === 2 ? 2 : durationWeeks === 4 ? 4 : 5;
     const durString = calculatedNights === 1 
       ? (lang === 'fr' ? "1 nuit" : "1 คืน")
       : (lang === 'fr' ? `${calculatedNights} nuits` : `${calculatedNights} คืน`);
 
-    const calculatedBudget = step.budgetPerNight * calculatedNights;
+    const isStart = i === 0;
+    const isEnd = i === stepCount - 1;
+
+    let itemDuration = "";
+    if (isStart || isEnd) {
+      itemDuration = lang === 'fr' ? "1 nuit" : "1 คืน";
+    } else {
+      itemDuration = step.category === 'Attraction' || step.category === 'Activity' || step.category === 'Restaurant' 
+        ? (lang === 'fr' ? "1 journée" : "1 วัน") 
+        : durString;
+    }
+
+    const itemBudget = isStart || isEnd 
+      ? step.budgetPerNight 
+      : step.budgetPerNight * calculatedNights;
 
     items.push({
-      id: `${routeId}-step-mid-${i}`,
+      id: isStart ? `${routeId}-step-1` : isEnd ? `${routeId}-step-end` : `${routeId}-step-mid-${i}`,
       placeName: step.placeName,
       day: calculatedDay,
       category: step.category,
       notes: lang === 'fr' ? step.notesFr : step.notesTh,
       lat: step.lat,
       lng: step.lng,
-      duration: step.category === 'Attraction' || step.category === 'Activity' || step.category === 'Restaurant' 
-        ? (lang === 'fr' ? "1 journée" : "1 วัน") 
-        : durString,
-      budget: calculatedBudget || undefined,
+      duration: itemDuration,
+      budget: itemBudget || undefined,
       detailedTips: lang === 'fr' ? step.detailedTipsFr : step.detailedTipsTh,
       maxInfo: lang === 'fr' ? step.maxInfoFr : step.maxInfoTh
     });
   }
 
-  // 3. Point d'arrivée (Bangkok)
-  items.push({
-    id: `${routeId}-step-end`,
-    placeName: endStep.placeName,
-    day: totalDays,
-    category: endStep.category,
-    notes: lang === 'fr' ? endStep.notesFr : endStep.notesTh,
-    lat: endStep.lat,
-    lng: endStep.lng,
-    duration: lang === 'fr' ? "1 nuit" : "1 คืน",
-    budget: endStep.budgetPerNight,
-    detailedTips: lang === 'fr' ? endStep.detailedTipsFr : endStep.detailedTipsTh,
-    maxInfo: lang === 'fr' ? endStep.maxInfoFr : endStep.maxInfoTh
-  });
-
-  // Sort items by day just to be fully safe
+  // Sort items by day
   items.sort((a, b) => a.day - b.day);
 
-  // Return generated object
   const routeName = lang === 'fr' ? template.nameFr : template.nameTh;
   const durationText = lang === 'fr' ? `${durationWeeks} semaines` : `${durationWeeks} สัปดาห์`;
-  
+
   return {
     items,
     title: `${routeName} - ${durationText}`,
     description: lang === 'fr' 
-      ? `${template.descFr} (Itinéraire optimisé de ${durationWeeks} semaines au départ de Samut Sakhon).`
+      ? `${template.descFr} (Itinéraire de ${durationWeeks} semaines optimisé au départ de Samut Sakhon).`
       : `${template.descTh} (เส้นทางที่แนะนำ ${durationWeeks} สัปดาห์ เริ่มต้นจากสมุทรสาคร)`
   };
 }

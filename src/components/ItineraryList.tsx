@@ -339,7 +339,7 @@ export default function ItineraryList({
   };
 
   return (
-    <div className="flex flex-col h-full" id="itinerary-list">
+    <div className="flex flex-col" id="itinerary-list">
       {/* Search and Filter Row */}
       <div className="p-4 border-b border-slate-100 flex flex-col sm:flex-row gap-2.5 items-center bg-white sticky top-0 z-20 shadow-sm">
         <div className="relative w-full sm:flex-1">
@@ -371,7 +371,7 @@ export default function ItineraryList({
       </div>
 
       {/* Primary Scrollable List container */}
-      <div className="flex-1 overflow-y-auto p-5 space-y-6">
+      <div className="p-5 space-y-6">
         {/* Dynamic Weather, Altitude & Road-Trip Advisor Block */}
         <div className="bg-gradient-to-br from-emerald-50/70 to-teal-50/50 rounded-xl p-4 border border-emerald-100 shadow-sm" id="weather-roadtrip-advisor">
           <button 
