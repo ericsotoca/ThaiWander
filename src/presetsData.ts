@@ -95,19 +95,6 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         maxInfoTh: "ชมกิ่วแม่ปาน ป่าโบราณยุคหิมพานต์และพรรณไม้เมืองหนาวที่งดงาม"
       },
       {
-        placeName: "Chae Son National Park",
-        category: "Camping",
-        notesFr: "Camping au bord du ruisseau thermal de Lampang",
-        notesTh: "กางเต็นท์อุทยานแห่งชาติแจ้ซ้อน ต้มไข่ในบ่อน้ำร้อนธรรมชาติ",
-        lat: 18.8313,
-        lng: 99.4711,
-        budgetPerNight: 100,
-        detailedTipsFr: "Achetez un petit panier d'œufs pour les faire cuire dans l'eau thermale à 80°C du parc.",
-        detailedTipsTh: "ซื้อไข่ไก่/ไข่นกกระทามาต้มในน้ำพุร้อนธรรมชาติ 80 องศา อร่อยกลมกล่อมเป็นเอกลักษณ์",
-        maxInfoFr: "Une merveilleuse harmonie entre source d'eau chaude naturelle et cascade fraîche.",
-        maxInfoTh: "แหล่งท่องเที่ยวทางธรรมชาติระดับท็อปที่ผสมผสานน้ำพุร้อนและน้ำตกเย็นฉ่ำไว้อย่างลงตัว"
-      },
-      {
         placeName: "Doi Pha Hom Pok National Park",
         category: "Camping",
         notesFr: "Sources chaudes de Fang et camping d'altitude",
@@ -145,6 +132,19 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         detailedTipsTh: "ลิ้มลองเมนูปลาย่างสดๆ จากกว๊านพะเยา และดื่มด่ำกับพระอาทิตย์ดวงกลมโตตกดินสุดโรแมนติก",
         maxInfoFr: "Un lac d'eau douce grandiose et mystique entouré de montagnes douces.",
         maxInfoTh: "กว๊านพะเยา แหล่งน้ำจืดที่ใหญ่ที่สุดในภาคเหนือและเป็นศูนย์รวมวิถีชีวิตคนพะเยา"
+      },
+      {
+        placeName: "Chae Son National Park",
+        category: "Camping",
+        notesFr: "Camping au bord du ruisseau thermal de Lampang",
+        notesTh: "กางเต็นท์อุทยานแห่งชาติแจ้ซ้อน ต้มไข่ในบ่อน้ำร้อนธรรมชาติ",
+        lat: 18.8313,
+        lng: 99.4711,
+        budgetPerNight: 100,
+        detailedTipsFr: "Achetez un petit panier d'œufs pour les faire cuire dans l'eau thermale à 80°C du parc.",
+        detailedTipsTh: "ซื้อไข่ไก่/ไข่นกกระทามาต้ม in น้ำพุร้อนธรรมชาติ 80 องศา อร่อยกลมกล่อมเป็นเอกลักษณ์",
+        maxInfoFr: "Une merveilleuse harmonie entre source d'eau chaude naturelle et cascade fraîche.",
+        maxInfoTh: "แหล่งท่องเที่ยวทางธรรมชาติระดับท็อปที่ผสมผสานน้ำพุร้อนและน้ำตกเย็นฉ่ำไว้อย่างลงตัว"
       },
       {
         placeName: "Phitsanulok (Wat Phra Si Rattana Mahathat)",

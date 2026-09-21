@@ -77,7 +77,7 @@ const CHECKLIST_ITEMS = [
   { id: 'cash', category: 'protection', fr: 'Espèces (bahts) pour frais d\'entrée parcs (pas de CB)', th: 'เงินสดสำรอง (บาท) สำหรับค่าผ่านด่านอุทยาน' },
 ];
 
-interface LodgingProposal {
+export interface LodgingProposal {
   name: string;
   type: string;
   priceThb: number;
@@ -85,7 +85,7 @@ interface LodgingProposal {
   highlight: string;
 }
 
-function getLodgingSuggestions(placeName: string, category: 'Lodging' | 'Camping', lang: 'fr' | 'th'): LodgingProposal[] {
+export function getLodgingSuggestions(placeName: string, category: 'Lodging' | 'Camping', lang: 'fr' | 'th'): LodgingProposal[] {
   const cleanName = placeName.split('(')[0].trim();
   
   if (category === 'Camping') {

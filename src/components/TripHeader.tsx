@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { TripSettings, ItineraryItem } from '../types';
-import { Calendar, Edit3, Save, MapPin, Compass, Wallet, Tent, Car } from 'lucide-react';
-import { ROUTE_TEMPLATES } from '../presetsData';
-import { calculateTotalItineraryStats } from '../utils/distance';
+import { Calendar, Edit3, Save, MapPin, Compass, Wallet, Tent, Car, ArrowUpDown, SlidersHorizontal, Search, X, Bed, Sparkles } from 'lucide-react';
+import { ROUTE_TEMPLATES, generatePresetItinerary } from '../presetsData';
+import { calculateTotalItineraryStats, estimateRoadTripStats } from '../utils/distance';
+import { getLodgingSuggestions } from './ItineraryList';
 
 interface TripHeaderProps {
   settings: TripSettings;
@@ -29,6 +30,13 @@ export default function TripHeader({
   const [title, setTitle] = useState(settings.title);
   const [description, setDescription] = useState(settings.description);
   const [startDate, setStartDate] = useState(settings.startDate);
+
+  // Sorting, searching and duration filtering state for the 30 preset routes comparative table
+  const [isTableOpen, setIsTableOpen] = useState(false);
+  const [sortField, setSortField] = useState<'budget' | 'distance' | 'weeks' | 'name'>('name');
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterWeeks, setFilterWeeks] = useState<'All' | 2 | 4 | 6>('All');
 
   const handleSave = () => {
     onUpdateSettings({
@@ -77,6 +85,75 @@ export default function TripHeader({
   const displayDescription = lang === 'th' && settings.description === "Un road trip nature exceptionnel à travers les parcs nationaux, les montagnes et les temples sacrés de Thaïlande."
     ? "โรดทริปธรรมชาติสุดพิเศษผ่านอุทยานแห่งชาติ ภูเขา และวัดศักดิ์สิทธิ์ของประเทศไทย"
     : settings.description;
+
+  // 1. Compile all 30 itinerary combinations (10 route templates * 3 durations) on-the-fly
+  const allProposals = ROUTE_TEMPLATES.flatMap(route => {
+    return ([2, 4, 6] as const).map(weeks => {
+      const generated = generatePresetItinerary(route.id, weeks, lang);
+      const itemsList = generated.items;
+      
+      const stats = calculateTotalItineraryStats(itemsList);
+      const campingCount = itemsList.filter(it => it.category === 'Camping').length;
+      const lodgingCount = itemsList.filter(it => it.category === 'Lodging').length;
+      const lodgingBudget = itemsList.reduce((sum, it) => sum + (it.budget || 0), 0);
+      const fuelCost = Math.round(stats.totalKm * 3.0);
+      const tollCost = Math.round(stats.totalKm * 0.5);
+      const grandTotalBudget = lodgingBudget + fuelCost + tollCost;
+      
+      return {
+        routeId: route.id,
+        weeks,
+        name: lang === 'fr' ? route.nameFr : route.nameTh,
+        desc: lang === 'fr' ? route.descFr : route.descTh,
+        title: generated.title,
+        itemsCount: itemsList.length,
+        campingCount,
+        lodgingCount,
+        totalKm: stats.totalKm,
+        totalHours: stats.totalHours,
+        lodgingBudget,
+        fuelCost,
+        tollCost,
+        grandTotalBudget
+      };
+    });
+  });
+
+  // 2. Filter the proposals list by search query and duration
+  const filteredProposals = allProposals.filter(prop => {
+    const matchesSearch = 
+      prop.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      prop.desc.toLowerCase().includes(searchQuery.toLowerCase());
+      
+    const matchesWeeks = 
+      filterWeeks === 'All' || 
+      prop.weeks === filterWeeks;
+      
+    return matchesSearch && matchesWeeks;
+  });
+
+  // 3. Sort the filtered proposals list
+  const sortedProposals = [...filteredProposals].sort((a, b) => {
+    let factor = sortDirection === 'asc' ? 1 : -1;
+    if (sortField === 'budget') {
+      return (a.grandTotalBudget - b.grandTotalBudget) * factor;
+    } else if (sortField === 'distance') {
+      return (a.totalKm - b.totalKm) * factor;
+    } else if (sortField === 'weeks') {
+      return (a.weeks - b.weeks) * factor;
+    } else {
+      return a.name.localeCompare(b.name) * factor;
+    }
+  });
+
+  const toggleSort = (field: 'budget' | 'distance' | 'weeks' | 'name') => {
+    if (sortField === field) {
+      setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortDirection('asc');
+    }
+  };
 
   return (
     <div className="relative bg-white border-b border-slate-100 shadow-sm" id="trip-header">
@@ -186,9 +263,20 @@ export default function TripHeader({
             </div>
 
             <div>
-              <label className="block text-[9px] font-black text-slate-400 uppercase mb-0.5">
-                {lang === 'fr' ? "Durée" : "ระยะเวลา"}
-              </label>
+              <div className="flex items-center justify-between mb-0.5">
+                <label className="block text-[9px] font-black text-slate-400 uppercase">
+                  {lang === 'fr' ? "Durée" : "ระยะเวลา"}
+                </label>
+                <button
+                  type="button"
+                  onClick={() => setIsTableOpen(true)}
+                  className="text-[8px] sm:text-[9px] text-emerald-700 bg-emerald-50 hover:bg-emerald-100 font-extrabold px-1.5 py-0.5 rounded border border-emerald-200/50 flex items-center gap-1 cursor-pointer transition-colors shadow-sm"
+                  title={lang === 'fr' ? "Comparer les 30 itinéraires et budgets" : "เปรียบเทียบ 30 เส้นทางและงบประมาณ"}
+                >
+                  <Sparkles className="w-2.5 h-2.5 text-emerald-600 animate-bounce" style={{ animationDuration: '3s' }} />
+                  <span>{lang === 'fr' ? "30 Comparatif" : "เปรียบเทียบ 30"}</span>
+                </button>
+              </div>
               <select
                 value={selectedWeeks}
                 onChange={(e) => onSelectWeeks(Number(e.target.value) as 2 | 4 | 6)}
@@ -339,6 +427,286 @@ export default function TripHeader({
           </div>
         </div>
       </div>
+
+      {/* 30 Preset Itineraries Comparison Table Modal Overlay */}
+      {isTableOpen && (
+        <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-6xl h-[85vh] flex flex-col overflow-hidden animate-in fade-in zoom-in duration-200">
+            {/* Modal Header */}
+            <div className="bg-slate-900 text-white px-6 py-4 flex items-center justify-between border-b border-slate-800">
+              <div className="flex items-center gap-2.5">
+                <div className="p-1.5 bg-emerald-600 rounded-lg text-white">
+                  <Compass className="w-4 h-4 text-emerald-100" />
+                </div>
+                <div>
+                  <h2 className="text-sm font-extrabold uppercase tracking-wider">
+                    {lang === 'fr' ? "📊 Tableau Comparatif des 30 Parcours de Thaïlande" : "📊 ตารางเปรียบเทียบ 30 เส้นทางท่องเที่ยวในไทย"}
+                  </h2>
+                  <p className="text-[10px] text-slate-400 font-medium">
+                    {lang === 'fr' 
+                      ? "Comparez toutes les combinaisons d'itinéraires, de durées, de budgets et de distances d'un seul coup d'œil !" 
+                      : "เปรียบเทียบข้อมูลเส้นทางทั้งหมด ทั้งระยะเวลา งบประมาณ และระยะทางได้ในหน้าเดียว!"}
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsTableOpen(false)}
+                className="bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white p-2 rounded-lg cursor-pointer transition-colors border border-slate-700"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Controls Bar: Search and Duration Filter */}
+            <div className="p-4 bg-slate-50 border-b border-slate-200 flex flex-col md:flex-row items-center justify-between gap-3 shrink-0">
+              {/* Search input */}
+              <div className="relative w-full md:w-80">
+                <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+                <input
+                  type="text"
+                  placeholder={lang === 'fr' ? "Rechercher par région, thème..." : "ค้นหาตามภาค, ธีม..."}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-white border border-slate-200 rounded-lg py-1.5 pl-9 pr-3 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium text-slate-700 shadow-sm"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-3 top-2 w-4 h-4 text-slate-400 hover:text-slate-600 font-bold font-sans text-xs"
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+
+              {/* Filters & Statistics */}
+              <div className="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
+                <span className="text-[10px] uppercase font-black text-slate-400 tracking-wider">
+                  {lang === 'fr' ? "Filtrer par Durée :" : "กรองตามระยะเวลา :"}
+                </span>
+                <div className="flex bg-slate-200/60 p-0.5 rounded-lg border border-slate-200/50">
+                  <button
+                    onClick={() => setFilterWeeks('All')}
+                    className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                      filterWeeks === 'All' 
+                        ? 'bg-white text-slate-800 shadow-sm border border-slate-300/10' 
+                        : 'text-slate-500 hover:text-slate-700'
+                    }`}
+                  >
+                    {lang === 'fr' ? "Toutes" : "ทั้งหมด"}
+                  </button>
+                  <button
+                    onClick={() => setFilterWeeks(2)}
+                    className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                      filterWeeks === 2 
+                        ? 'bg-white text-emerald-700 shadow-sm border border-slate-300/10' 
+                        : 'text-slate-500 hover:text-emerald-700'
+                    }`}
+                  >
+                    ⏱️ {lang === 'fr' ? "2 s." : "2 สัปดาห์"}
+                  </button>
+                  <button
+                    onClick={() => setFilterWeeks(4)}
+                    className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                      filterWeeks === 4 
+                        ? 'bg-white text-emerald-700 shadow-sm border border-slate-300/10' 
+                        : 'text-slate-500 hover:text-emerald-700'
+                    }`}
+                  >
+                    ⏱️ {lang === 'fr' ? "4 s." : "4 สัปดาห์"}
+                  </button>
+                  <button
+                    onClick={() => setFilterWeeks(6)}
+                    className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
+                      filterWeeks === 6 
+                        ? 'bg-white text-emerald-700 shadow-sm border border-slate-300/10' 
+                        : 'text-slate-500 hover:text-emerald-700'
+                    }`}
+                  >
+                    ⏱️ {lang === 'fr' ? "6 s." : "6 สัปดาห์"}
+                  </button>
+                </div>
+
+                <div className="text-[10px] text-slate-500 font-extrabold px-3 py-1 bg-slate-100 rounded-lg border border-slate-200">
+                  {sortedProposals.length} {lang === 'fr' ? "itinéraires correspondants" : "เส้นทางที่พบ"}
+                </div>
+              </div>
+            </div>
+
+            {/* Table Content Container */}
+            <div className="flex-1 overflow-auto p-4">
+              <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-200 text-[10px] uppercase font-black tracking-wider text-slate-500">
+                      <th 
+                        onClick={() => toggleSort('name')}
+                        className="py-3 px-4 cursor-pointer hover:bg-slate-100 select-none transition-colors"
+                      >
+                        <div className="flex items-center gap-1">
+                          <span>{lang === 'fr' ? "Région & Thématique" : "ภาคและธีมเส้นทาง"}</span>
+                          <ArrowUpDown className="w-3 h-3 text-slate-400" />
+                          {sortField === 'name' && <span className="text-emerald-600 font-bold">{sortDirection === 'asc' ? '▲' : '▼'}</span>}
+                        </div>
+                      </th>
+                      <th 
+                        onClick={() => toggleSort('weeks')}
+                        className="py-3 px-4 cursor-pointer hover:bg-slate-100 select-none transition-colors"
+                      >
+                        <div className="flex items-center gap-1">
+                          <span>{lang === 'fr' ? "Durée" : "ระยะเวลา"}</span>
+                          <ArrowUpDown className="w-3 h-3 text-slate-400" />
+                          {sortField === 'weeks' && <span className="text-emerald-600 font-bold">{sortDirection === 'asc' ? '▲' : '▼'}</span>}
+                        </div>
+                      </th>
+                      <th className="py-3 px-4">
+                        {lang === 'fr' ? "Hébergements" : "ที่พักแรม"}
+                      </th>
+                      <th 
+                        onClick={() => toggleSort('distance')}
+                        className="py-3 px-4 cursor-pointer hover:bg-slate-100 select-none transition-colors"
+                      >
+                        <div className="flex items-center gap-1">
+                          <span>{lang === 'fr' ? "Distance & Route" : "ระยะทาง & ขับรถ"}</span>
+                          <ArrowUpDown className="w-3 h-3 text-slate-400" />
+                          {sortField === 'distance' && <span className="text-emerald-600 font-bold">{sortDirection === 'asc' ? '▲' : '▼'}</span>}
+                        </div>
+                      </th>
+                      <th 
+                        onClick={() => toggleSort('budget')}
+                        className="py-3 px-4 cursor-pointer hover:bg-slate-100 select-none transition-colors"
+                      >
+                        <div className="flex items-center gap-1">
+                          <span>{lang === 'fr' ? "Budget Estimé (Total)" : "งบประมาณรวม"}</span>
+                          <ArrowUpDown className="w-3 h-3 text-slate-400" />
+                          {sortField === 'budget' && <span className="text-emerald-600 font-bold">{sortDirection === 'asc' ? '▲' : '▼'}</span>}
+                        </div>
+                      </th>
+                      <th className="py-3 px-4 text-center">
+                        {lang === 'fr' ? "Action" : "เลือกใช้งาน"}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {sortedProposals.length === 0 ? (
+                      <tr>
+                        <td colSpan={6} className="py-12 text-center text-xs text-slate-400 font-medium">
+                          {lang === 'fr' ? "Aucun itinéraire ne correspond à vos critères." : "ไม่พบเส้นทางที่ตรงตามเงื่อนไขของคุณ"}
+                        </td>
+                      </tr>
+                    ) : (
+                      sortedProposals.map((prop, idx) => {
+                        const isActive = prop.routeId === selectedRouteId && prop.weeks === selectedWeeks;
+                        return (
+                          <tr 
+                            key={idx} 
+                            className={`hover:bg-slate-50/50 transition-colors text-xs ${isActive ? 'bg-emerald-50/20' : ''}`}
+                          >
+                            {/* Region & Theme */}
+                            <td className="py-4 px-4 max-w-sm">
+                              <div className="space-y-1">
+                                <span className="font-extrabold text-slate-950 text-xs flex items-center gap-1.5">
+                                  {prop.name}
+                                  {isActive && (
+                                    <span className="bg-emerald-500/15 text-emerald-700 text-[8px] font-black uppercase px-1.5 py-0.5 rounded-full border border-emerald-500/10">
+                                      {lang === 'fr' ? "Actif" : "ใช้งานอยู่"}
+                                    </span>
+                                  )}
+                                </span>
+                                <p className="text-[10px] text-slate-400 leading-normal line-clamp-2">{prop.desc}</p>
+                              </div>
+                            </td>
+
+                            {/* Duration Weeks */}
+                            <td className="py-4 px-4">
+                              <span className="font-extrabold text-slate-700 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-lg">
+                                {lang === 'fr' ? `${prop.weeks} Semaines` : `${prop.weeks} สัปดาห์`}
+                              </span>
+                            </td>
+
+                            {/* Lodgings & Steps */}
+                            <td className="py-4 px-4">
+                              <div className="space-y-1 text-slate-600">
+                                <div className="font-bold text-slate-800">
+                                  {prop.itemsCount} {lang === 'fr' ? "destinations" : "จุดแวะพัก"}
+                                </div>
+                                <div className="text-[10px] text-slate-400 font-semibold flex items-center gap-2">
+                                  <span className="flex items-center gap-0.5">⛺ {prop.campingCount}</span>
+                                  <span>•</span>
+                                  <span className="flex items-center gap-0.5">🏨 {prop.lodgingCount}</span>
+                                </div>
+                              </div>
+                            </td>
+
+                            {/* Distance & Route hours */}
+                            <td className="py-4 px-4 font-medium text-slate-600">
+                              <div className="font-mono font-bold text-slate-800">
+                                {prop.totalKm.toLocaleString()} km
+                              </div>
+                              <div className="text-[10px] text-slate-400 font-bold font-mono">
+                                ~{prop.totalHours}h {lang === 'fr' ? "de conduite" : "ชั่วโมงขับรถ"}
+                              </div>
+                            </td>
+
+                            {/* Budget total */}
+                            <td className="py-4 px-4">
+                              <div className="font-mono font-black text-rose-600 text-[13px]">
+                                {prop.grandTotalBudget.toLocaleString()} THB
+                              </div>
+                              <div className="text-[10px] text-slate-400 font-bold font-mono leading-tight">
+                                ~{Math.round(prop.grandTotalBudget / 38).toLocaleString('fr-FR')} EUR
+                              </div>
+                              <div className="text-[9px] text-slate-400 leading-none mt-1">
+                                {lang === 'fr' 
+                                  ? `Essence : ${prop.fuelCost.toLocaleString()} ฿ • Péages : ${prop.tollCost.toLocaleString()} ฿`
+                                  : `น้ำมัน : ${prop.fuelCost.toLocaleString()} ฿ • ค่าผ่านทาง : ${prop.tollCost.toLocaleString()} ฿`}
+                              </div>
+                            </td>
+
+                            {/* Action Button */}
+                            <td className="py-4 px-4 text-center whitespace-nowrap">
+                              {isActive ? (
+                                <div className="text-emerald-600 font-extrabold text-[10px] uppercase flex items-center justify-center gap-1 bg-emerald-50 border border-emerald-200/50 px-3 py-1.5 rounded-lg w-28 mx-auto shadow-sm">
+                                  <span>{lang === 'fr' ? "Actif ✨" : "ใช้งานอยู่ ✨"}</span>
+                                </div>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    onSelectRoute(prop.routeId);
+                                    onSelectWeeks(prop.weeks);
+                                    setIsTableOpen(false);
+                                  }}
+                                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-[10px] uppercase px-3.5 py-1.5 rounded-lg transition-all cursor-pointer shadow-sm shadow-emerald-950/10 border border-emerald-500 w-28 mx-auto block hover:scale-102"
+                                >
+                                  {lang === 'fr' ? "Activer ⚡" : "เลือกใช้ ⚡"}
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="bg-slate-50 px-6 py-3.5 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between shrink-0 text-[10px] text-slate-500 font-semibold gap-2">
+              <span>
+                {lang === 'fr' 
+                  ? "* Les coûts incluent les estimations d'hébergement + carburant (3 ฿/km) + péages (0.5 ฿/km)." 
+                  : "* ค่าใช้จ่ายรวมการประมาณการค่าที่พัก + ค่าน้ำมัน (3 ฿/กม.) + ค่าผ่านทาง (0.5 ฿/กม.)"}
+              </span>
+              <span>
+                {lang === 'fr' ? "Moteur de comparaison de routes ThaiWander" : "ระบบวิเคราะห์เปรียบเทียบแผนที่โดย ThaiWander"}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
