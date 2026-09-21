@@ -59,30 +59,27 @@ export default function App() {
   const handleSelectRoute = (routeId: string) => {
     setSelectedRouteId(routeId);
     localStorage.setItem('thaiwander_selected_route_id', routeId);
-    
-    const { items: newItems, title, description } = generatePresetItinerary(routeId, selectedWeeks, lang);
-    setItems(newItems);
-    setSettings({
-      title,
-      description,
-      startDate: settings.startDate || DEFAULT_TRIP_SETTINGS.startDate
-    });
     setSelectedItemId(null);
   };
 
   const handleSelectWeeks = (weeks: 2 | 4 | 6) => {
     setSelectedWeeks(weeks);
     localStorage.setItem('thaiwander_selected_weeks', String(weeks));
-    
-    const { items: newItems, title, description } = generatePresetItinerary(selectedRouteId, weeks, lang);
-    setItems(newItems);
-    setSettings({
-      title,
-      description,
-      startDate: settings.startDate || DEFAULT_TRIP_SETTINGS.startDate
-    });
     setSelectedItemId(null);
   };
+
+  // Automatically regenerate dynamic route if language, selected route, or duration changes.
+  // This guarantees that changing the language translates everything instantly.
+  useEffect(() => {
+    const preset = generatePresetItinerary(selectedRouteId, selectedWeeks, lang);
+    setItems(preset.items);
+    setSettings(prev => ({
+      ...prev,
+      title: preset.title,
+      description: preset.description,
+      startDate: prev.startDate || DEFAULT_TRIP_SETTINGS.startDate
+    }));
+  }, [lang, selectedRouteId, selectedWeeks]);
 
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
@@ -217,7 +214,10 @@ export default function App() {
 
   // Reset to default trip itinerary
   const handleResetItinerary = () => {
-    if (confirm("Voulez-vous réinitialiser l'itinéraire de Thaïlande par défaut ? Toutes vos modifications locales seront écrasées.")) {
+    const msg = lang === 'fr' 
+      ? "Voulez-vous réinitialiser l'itinéraire de Thaïlande par défaut ? Toutes vos modifications locales seront écrasées."
+      : "คุณต้องการรีเซ็ตแผนการเดินทางเริ่มต้นของไทยหรือไม่? การเปลี่ยนแปลงทั้งหมดของคุณจะถูกบันทึกทับ";
+    if (confirm(msg)) {
       setItems(DEFAULT_ITINERARY);
       setSettings(DEFAULT_TRIP_SETTINGS);
       setSelectedItemId(null);
@@ -312,7 +312,7 @@ export default function App() {
               onClick={() => setIsLeftCollapsed(!isLeftCollapsed)}
               className="absolute z-20 bg-white hover:bg-slate-50 text-slate-700 hover:text-slate-900 border border-slate-200 rounded-lg p-2 shadow-md transition-all duration-200 cursor-pointer flex items-center justify-center"
               style={{ left: '16px', top: '80px' }}
-              title={isLeftCollapsed ? "Afficher l'itinéraire" : "Masquer l'itinéraire"}
+              title={isLeftCollapsed ? (lang === 'fr' ? "Afficher l'itinéraire" : "แสดงกำหนดการเดินทาง") : (lang === 'fr' ? "Masquer l'itinéraire" : "ซ่อนกำหนดการเดินทาง")}
             >
               {isLeftCollapsed ? (
                 <ChevronRight className="w-4 h-4" />
