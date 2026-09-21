@@ -77,6 +77,110 @@ const CHECKLIST_ITEMS = [
   { id: 'cash', category: 'protection', fr: 'Espèces (bahts) pour frais d\'entrée parcs (pas de CB)', th: 'เงินสดสำรอง (บาท) สำหรับค่าผ่านด่านอุทยาน' },
 ];
 
+interface LodgingProposal {
+  name: string;
+  type: string;
+  priceThb: number;
+  priceEur: number;
+  highlight: string;
+}
+
+function getLodgingSuggestions(placeName: string, category: 'Lodging' | 'Camping', lang: 'fr' | 'th'): LodgingProposal[] {
+  const cleanName = placeName.split('(')[0].trim();
+  
+  if (category === 'Camping') {
+    return [
+      {
+        name: lang === 'fr' ? `Camp National - ${cleanName}` : `ลานกางเต็นท์อุทยานแห่งชาติ - ${cleanName}`,
+        type: lang === 'fr' ? "Emplacement & Tente standard" : "พื้นที่กางเต็นท์ & เช่าเต็นท์อุทยาน",
+        priceThb: 150,
+        priceEur: 4,
+        highlight: lang === 'fr' ? "Au plus près de la nature sauvage, sanitaires communs, très économique." : "ใกล้ชิดธรรมชาติมากที่สุด มีห้องน้ำบริการ ราคาประหยัดสุดคุ้ม"
+      },
+      {
+        name: lang === 'fr' ? `Adventure Bivouac ${cleanName}` : `จุดกางเต็นท์เอกชนวิวสวย - ${cleanName}`,
+        type: lang === 'fr' ? "Tente d'expédition Confort" : "บริการเต็นท์สนามครบเซ็ตพร้อมฟูกนอน",
+        priceThb: 450,
+        priceEur: 12,
+        highlight: lang === 'fr' ? "Matelas douillet fourni, emplacement surélevé, vue panoramique dégagée." : "มีเบาะฟูกนอนหนานุ่มให้ วิวพาโนรามาสวยงาม อุปกรณ์แคมป์ครบครัน"
+      },
+      {
+        name: lang === 'fr' ? `Eco-Glamping Dome ${cleanName}` : `โดมแกลมปิ้งสุดหรู - ${cleanName}`,
+        type: lang === 'fr' ? "Dôme Safari / Glamping Premium" : "โดมติดแอร์ / แกลมปิ้งระดับพรีเมียม",
+        priceThb: 1800,
+        priceEur: 49,
+        highlight: lang === 'fr' ? "Lit King Size, climatisation, terrasse en bois privée avec barbecue." : "เตียงคิงไซส์ เครื่องปรับอากาศ ระเบียงไม้ส่วนตัวพร้อมเตาปิ้งย่าง"
+      }
+    ];
+  } else {
+    let lowName = lang === 'fr' ? `Local Homestay ${cleanName}` : `โฮมสเตย์ท้องถิ่นอบอุ่น - ${cleanName}`;
+    let midName = lang === 'fr' ? `${cleanName} Cozy Boutique` : `โรงแรมบูติคแสนสบาย - ${cleanName}`;
+    let highName = lang === 'fr' ? `${cleanName} Heritage Resort & Spa` : `รีสอร์ตหรูระดับพรีเมียม - ${cleanName}`;
+
+    if (placeName.includes("Ayutthaya")) {
+      lowName = "Ayutthaya Riverview Hostel";
+      midName = "Baan Thai House Ayutthaya";
+      highName = "Sala Ayutthaya Luxury Resort";
+    } else if (placeName.includes("Sukhothai")) {
+      lowName = "Sukhothai Old Town Guesthouse";
+      midName = "Sukhothai Treasure Resort";
+      highName = "Sriwilai Sukhothai Resort & Spa";
+    } else if (placeName.includes("Chiang Rai")) {
+      lowName = "Chiang Rai Central Clock Tower Guesthouse";
+      midName = "The Legend Chiang Rai River Resort";
+      highName = "Le Méridien Chiang Rai Grand Resort";
+    } else if (placeName.includes("Phayao") || placeName.includes("Kwan Phayao")) {
+      lowName = "Phayao Lakeview Guesthouse";
+      midName = "Naga Tara Resort Phayao";
+      highName = "M2 Hotel Waterside Phayao";
+    } else if (placeName.includes("Bangkok")) {
+      lowName = "Khao San Art Boutique Hostel";
+      midName = "Riva Surya Bangkok Hotel";
+      highName = "The Peninsula Bangkok Chao Phraya";
+    } else if (placeName.includes("Lopburi")) {
+      lowName = "Lopburi Monkey City Hostel";
+      midName = "Narra Hotel Lopburi";
+      highName = "The Lopburi Inn Resort";
+    } else if (placeName.includes("Nakhon Sawan")) {
+      lowName = "Nakhon Sawan River Guesthouse";
+      midName = "The Paradise Residence Nakhon Sawan";
+      highName = "Tammarind Grand Hotel";
+    } else if (placeName.includes("Suphan Buri")) {
+      lowName = "Suphan Buri Country Homestay";
+      midName = "Darapura At Wangyang Resort";
+      highName = "Lardya Boutique Hotel Suphan Buri";
+    } else if (placeName.includes("Phitsanulok")) {
+      lowName = "Phitsanulok Riverside Hostel";
+      midName = "The Grand Majestic Hotel Phitsanulok";
+      highName = "Shinnabhura Historic Boutique Hotel";
+    }
+
+    return [
+      {
+        name: lowName,
+        type: lang === 'fr' ? "Hébergement local / Guesthouse" : "เกสต์เฮาส์ท้องถิ่น / บังกะโล",
+        priceThb: 450,
+        priceEur: 12,
+        highlight: lang === 'fr' ? "Ambiance chaleureuse, hôtes locaux de bon conseil, ventilateur et propreté irréprochable." : "เป็นกันเอง อบอุ่น แนะนำที่เที่ยวท้องถิ่นได้ดี มีพัดลมและสิ่งอำนวยความสะดวกครบ"
+      },
+      {
+        name: midName,
+        type: lang === 'fr' ? "Boutique Hôtel / Confort" : "โรงแรมสไตล์บูติคระดับ 3-4 ดาว",
+        priceThb: 1400,
+        priceEur: 38,
+        highlight: lang === 'fr' ? "Climatisation, piscine rafraîchissante, petit-déjeuner thaï traditionnel inclus." : "เครื่องปรับอากาศ สระว่ายน้ำส่วนกลาง ฟรีอาหารเช้าสไตล์ไทยดั้งเดิมสุดอร่อย"
+      },
+      {
+        name: highName,
+        type: lang === 'fr' ? "Resort d'Exception / Villa" : "รีสอร์ตหรูระดับ 5 ดาว / พูลวิลล่า",
+        priceThb: 4200,
+        priceEur: 114,
+        highlight: lang === 'fr' ? "Lit haut de gamme, vue imprenable, spa de massage de classe mondiale et dîner gastronomique." : "วิวทิวทัศน์หลักล้าน เตียงนอนระดับพรีเมียม สปานวดผ่อนคลายเต็มรูปแบบและดินเนอร์สุดหรู"
+      }
+    ];
+  }
+}
+
 export default function ItineraryList({
   items,
   selectedItemId,
@@ -709,6 +813,45 @@ export default function ItineraryList({
                                     {t.maxInfo} :
                                   </span>
                                   {displayItem.maxInfo}
+                                </div>
+                              )}
+
+                              {/* Lodging & Camping Pricing Proposals */}
+                              {(item.category === 'Lodging' || item.category === 'Camping') && (
+                                <div className="p-3 bg-slate-50/90 rounded-xl border border-slate-100 space-y-2.5">
+                                  <span className="text-[10px] font-extrabold text-slate-700 flex items-center gap-1.5 mb-1 uppercase tracking-wider">
+                                    <span className="text-emerald-600">🏨</span>
+                                    {lang === 'fr' ? "Propositions d'hébergements & Tarifs" : "ข้อเสนอที่พักและราคาแนะนำ"}
+                                  </span>
+                                  <div className="space-y-2 text-left">
+                                    {getLodgingSuggestions(displayItem.placeName, item.category, lang).map((lodg, idx) => (
+                                      <div key={idx} className="bg-white p-2.5 rounded-lg border border-slate-100 hover:border-emerald-100 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
+                                        <div className="space-y-0.5">
+                                          <div className="flex items-center gap-1.5 flex-wrap">
+                                            <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full ${
+                                              idx === 0 
+                                                ? 'bg-slate-100 text-slate-600' 
+                                                : idx === 1 
+                                                ? 'bg-emerald-50 text-emerald-700' 
+                                                : 'bg-indigo-50 text-indigo-700'
+                                            }`}>
+                                              {lodg.type}
+                                            </span>
+                                            <span className="text-[11px] font-bold text-slate-800">{lodg.name}</span>
+                                          </div>
+                                          <p className="text-[10px] text-slate-500 leading-relaxed font-medium">{lodg.highlight}</p>
+                                        </div>
+                                        <div className="text-right shrink-0 flex sm:flex-col items-baseline sm:items-end gap-1.5 sm:gap-0 justify-between border-t sm:border-t-0 pt-1.5 sm:pt-0 border-slate-50">
+                                          <span className="text-xs font-black text-slate-800">
+                                            {lodg.priceThb.toLocaleString()} THB
+                                          </span>
+                                          <span className="text-[9px] text-slate-400 font-bold">
+                                            ~{lodg.priceEur} € / {lang === 'fr' ? 'nuit' : 'คืน'}
+                                          </span>
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
                                 </div>
                               )}
 

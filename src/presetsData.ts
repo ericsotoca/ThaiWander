@@ -1,4 +1,4 @@
-import { ItineraryItem } from './types';
+import { ItineraryItem, CategoryType } from './types';
 
 export interface RouteTemplate {
   id: string;
@@ -82,19 +82,6 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         maxInfoTh: "ราชธานีแห่งแรกของไทยที่ได้รับการยกย่องจาก UNESCO ให้เป็นมรดกโลกอันล้ำค่า"
       },
       {
-        placeName: "Chae Son National Park",
-        category: "Camping",
-        notesFr: "Camping au bord du ruisseau thermal de Lampang",
-        notesTh: "กางเต็นท์อุทยานแห่งชาติแจ้ซ้อน ต้มไข่ในบ่อน้ำร้อนธรรมชาติ",
-        lat: 18.8313,
-        lng: 99.4711,
-        budgetPerNight: 100,
-        detailedTipsFr: "Achetez un petit panier d'œufs pour les faire cuire dans l'eau thermale à 80°C du parc.",
-        detailedTipsTh: "ซื้อไข่ไก่/ไข่นกกระทามาต้มในน้ำพุร้อนธรรมชาติ 80 องศา อร่อยกลมกล่อมเป็นเอกลักษณ์",
-        maxInfoFr: "Une merveilleuse harmonie entre source d'eau chaude naturelle et cascade fraîche.",
-        maxInfoTh: "แหล่งท่องเที่ยวทางธรรมชาติระดับท็อปที่ผสมผสานน้ำพุร้อนและน้ำตกเย็นฉ่ำไว้อย่างลงตัว"
-      },
-      {
         placeName: "Doi Inthanon National Park",
         category: "Camping",
         notesFr: "Camping près du toit de la Thaïlande",
@@ -106,6 +93,19 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         detailedTipsTh: "อากาศหนาวจัดสะท้านดอย (ต่ำสุดถึง 5 องศา) สามารถติดต่อเช่าเครื่องนอนเพิ่มเติมได้ที่อุทยาน",
         maxInfoFr: "Une expérience inoubliable au milieu des forêts moussues d'altitude.",
         maxInfoTh: "ชมกิ่วแม่ปาน ป่าโบราณยุคหิมพานต์และพรรณไม้เมืองหนาวที่งดงาม"
+      },
+      {
+        placeName: "Chae Son National Park",
+        category: "Camping",
+        notesFr: "Camping au bord du ruisseau thermal de Lampang",
+        notesTh: "กางเต็นท์อุทยานแห่งชาติแจ้ซ้อน ต้มไข่ในบ่อน้ำร้อนธรรมชาติ",
+        lat: 18.8313,
+        lng: 99.4711,
+        budgetPerNight: 100,
+        detailedTipsFr: "Achetez un petit panier d'œufs pour les faire cuire dans l'eau thermale à 80°C du parc.",
+        detailedTipsTh: "ซื้อไข่ไก่/ไข่นกกระทามาต้มในน้ำพุร้อนธรรมชาติ 80 องศา อร่อยกลมกล่อมเป็นเอกลักษณ์",
+        maxInfoFr: "Une merveilleuse harmonie entre source d'eau chaude naturelle et cascade fraîche.",
+        maxInfoTh: "แหล่งท่องเที่ยวทางธรรมชาติระดับท็อปที่ผสมผสานน้ำพุร้อนและน้ำตกเย็นฉ่ำไว้อย่างลงตัว"
       },
       {
         placeName: "Doi Pha Hom Pok National Park",
@@ -145,6 +145,19 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         detailedTipsTh: "ลิ้มลองเมนูปลาย่างสดๆ จากกว๊านพะเยา และดื่มด่ำกับพระอาทิตย์ดวงกลมโตตกดินสุดโรแมนติก",
         maxInfoFr: "Un lac d'eau douce grandiose et mystique entouré de montagnes douces.",
         maxInfoTh: "กว๊านพะเยา แหล่งน้ำจืดที่ใหญ่ที่สุดในภาคเหนือและเป็นศูนย์รวมวิถีชีวิตคนพะเยา"
+      },
+      {
+        placeName: "Phitsanulok (Wat Phra Si Rattana Mahathat)",
+        category: "Lodging",
+        notesFr: "Halte historique majeure au bord de la rivière Nan",
+        notesTh: "แวะนอนพิษณุโลก นมัสการพระพุทธชินราชคู่บ้านคู่เมืองริมแม่น้ำน่าน",
+        lat: 16.8294,
+        lng: 100.2625,
+        budgetPerNight: 500,
+        detailedTipsFr: "Admirez le magnifique Bouddha doré Phra Phuttha Chinnarat, l'un des plus vénérés de Thaïlande.",
+        detailedTipsTh: "สักการะพระพุทธชินราช พระพุทธรูปหล่อด้วยทองสัมฤทธิ์ที่มีพุทธลักษณะงดงามที่สุดในประเทศ",
+        maxInfoFr: "Une ville historique calme et authentique, idéale pour couper la route du Nord.",
+        maxInfoTh: "เมืองสองแควศูนย์กลางอารยธรรมโบราณริมแม่น้ำน่านที่เปี่ยมด้วยความสงบร่มรื่น"
       },
       {
         placeName: "Nakhon Sawan (Bueng Boraphet)",
@@ -1461,6 +1474,61 @@ function getLocalDrivingHours(lat1: number, lng1: number, lat2: number, lng2: nu
   return parseFloat((minutes / 60).toFixed(1));
 }
 
+function getDynamicRelayStep(lat1: number, lng1: number, lat2: number, lng2: number, lang: 'fr' | 'th') {
+  const midLat = (lat1 + lat2) / 2;
+  const midLng = (lng1 + lng2) / 2;
+  
+  let nameFr = "Escale de Sécurité (Relais)";
+  let nameTh = "จุดแวะพักระหว่างทาง (เพื่อความปลอดภัย)";
+  let descFr = "Une halte agréable pour couper le trajet de conduite et se reposer conformément à notre charte de sécurité (Maximum 3h de route par jour).";
+  let descTh = "จุดแวะพักที่จัดเตรียมขึ้นตามเกณฑ์ความปลอดภัยเพื่อลดความเหนื่อยล้าในการขับขี่ (ขับรถไม่เกิน 3 ชั่วโมงต่อวัน)";
+  let detailedTipsFr = "Profitez-en pour vous étirer, faire le plein d'essence et déguster des fruits frais locaux.";
+  let detailedTipsTh = "จอดพักยืดเส้นยืดสาย เติมน้ำมันให้เต็มถัง และเพลิดเพลินกับอาหารท้องถิ่นรสเลิศ";
+  let maxInfoFr = "Une étape indispensable pour garantir votre confort et votre sécurité sur la route.";
+  let maxInfoTh = "จุดพักรถและแคมป์ปิ้งที่ปลอดภัยตามมาตรฐานสากลเพื่อสุขอนามัยที่ดีในการเดินทาง";
+
+  if (midLat > 18.2) {
+    nameFr = "Phrae - Escale de Sécurité";
+    nameTh = "จังหวัดแพร่ - จุดแวะพักเพื่อความปลอดภัย";
+    descFr = "Halte charmante dans la province de Phrae pour savourer un café local et diviser le temps de conduite de moitié.";
+    descTh = "จุดแวะพักผ่อนจิบกาแฟในจังหวัดแพร่ เพื่อแบ่งครึ่งระยะเวลาการขับรถและพักผ่อนร่างกาย";
+  } else if (midLat > 16.5) {
+    nameFr = "Phitsanulok - Escale Historique";
+    nameTh = "จังหวัดพิษณุโลก - จุดแวะพักประวัติศาสตร์";
+    descFr = "Visitez le magnifique temple Wat Phra Si Rattana Mahathat au bord de la rivière Nan pour couper votre trajet.";
+    descTh = "แวะไหว้พระพุทธชินราชวัดพระศรีรัตนมหาธาตุวรมหาวิหารริมแม่น้ำน่าน ช่วยพักผ่อนลดความเหนื่อยล้า";
+  } else if (midLat > 14.8) {
+    nameFr = "Nakhon Sawan - Relais Confluent";
+    nameTh = "จังหวัดนครสวรรค์ - จุดแวะพักปากน้ำโพ";
+    descFr = "Faites une halte relaxante au confluent des rivières Ping et Nan formant le fleuve Chao Phraya.";
+    descTh = "จุดพักผ่อนชมต้นกำเนิดแม่น้ำเจ้าพระยาปากน้ำโพนครสวรรค์ พักกายพักสมองก่อนลุยต่อ";
+  } else if (midLat < 12.0 && midLat > 9.5) {
+    nameFr = "Chumphon - Escale du Littoral";
+    nameTh = "จังหวัดชุมพร - จุดแวะพักริมหาด";
+    descFr = "Halte côtière rafraîchissante pour diviser la longue route du Sud vers les plages turquoises.";
+    descTh = "จุดพักผ่อนเลาะริมชายหาดชุมพร ช่วยแบ่งครึ่งเส้นทางขับรถล่องใต้ที่แสนยาวไกลให้ผ่อนคลายขึ้น";
+  } else if (midLat <= 9.5) {
+    nameFr = "Surat Thani - Relais du Sud";
+    nameTh = "จังหวัดสุราษฎร์ธานี - จุดแวะพักภาคใต้";
+    descFr = "Une halte paisible dans la province de Surat Thani pour déguster d'excellents fruits tropicaux frais.";
+    descTh = "จุดแวะพักผ่อนในจังหวัดสุราษฎร์ธานี ลิ้มลองผลไม้เมืองใต้แสนอร่อยเพื่อเติมพลังก่อนเดินทาง";
+  }
+
+  return {
+    placeName: nameFr,
+    category: "Lodging" as CategoryType,
+    notesFr: descFr,
+    notesTh: descTh,
+    lat: midLat,
+    lng: midLng,
+    budgetPerNight: 400,
+    detailedTipsFr,
+    detailedTipsTh,
+    maxInfoFr,
+    maxInfoTh
+  };
+}
+
 export function generatePresetItinerary(
   routeId: string,
   durationWeeks: 2 | 4 | 6,
@@ -1533,8 +1601,39 @@ export function generatePresetItinerary(
     }
   }
 
+  // Construct initial list of raw steps
+  let finalSteps = selectedIndices.map(index => ({ ...rawSteps[index] }));
+
+  // Second level filter: If ANY consecutive steps in finalSteps STILL have > 3.0h of driving
+  // (e.g. consecutive steps in the template itself), we inject a dynamic geographic relay stop!
+  let fIdx = 0;
+  while (fIdx < finalSteps.length - 1) {
+    const stepA = finalSteps[fIdx];
+    const stepB = finalSteps[fIdx + 1];
+    const hours = getLocalDrivingHours(stepA.lat, stepA.lng, stepB.lat, stepB.lng);
+
+    if (hours > 3.0) {
+      const relay = getDynamicRelayStep(stepA.lat, stepA.lng, stepB.lat, stepB.lng, lang);
+      finalSteps.splice(fIdx + 1, 0, {
+        placeName: relay.placeName,
+        category: relay.category,
+        notesFr: relay.notesFr,
+        notesTh: relay.notesTh,
+        lat: relay.lat,
+        lng: relay.lng,
+        budgetPerNight: relay.budgetPerNight,
+        detailedTipsFr: relay.detailedTipsFr,
+        detailedTipsTh: relay.detailedTipsTh,
+        maxInfoFr: relay.maxInfoFr,
+        maxInfoTh: relay.maxInfoTh
+      });
+      // Do not increment fIdx to recheck the new link (stepA -> relay)
+    } else {
+      fIdx++;
+    }
+  }
+
   const items: ItineraryItem[] = [];
-  const finalSteps = selectedIndices.map(index => rawSteps[index]);
   const stepCount = finalSteps.length;
 
   for (let i = 0; i < stepCount; i++) {
