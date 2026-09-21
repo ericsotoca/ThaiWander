@@ -102,15 +102,20 @@ export default function TravelMap({
   // Initialize the map once
   useEffect(() => {
     if (mapContainerRef.current && !mapRef.current) {
-      // Thailand Center focus
+      // Thailand Center focus with zoom constraints and boundary restrictions
+      const bounds = L.latLngBounds([5.0, 97.0], [21.5, 106.0]);
       mapRef.current = L.map(mapContainerRef.current, {
         zoomControl: false,
-        attributionControl: false
-      }).setView([16.8, 100.5], 6);
+        attributionControl: false,
+        minZoom: 5,
+        maxZoom: 18,
+        maxBounds: bounds,
+        maxBoundsViscosity: 1.0
+      }).setView([13.7563, 100.5018], 6);
 
       // Add elegant standard OpenStreetMap layer
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
+        maxZoom: 18,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(mapRef.current);
 
@@ -124,6 +129,14 @@ export default function TravelMap({
         position: 'bottomleft',
         prefix: 'ThaiWander'
       }).addTo(mapRef.current);
+
+      // Ensure Leaflet calculates sizes properly after DOM mount
+      setTimeout(() => {
+        if (mapRef.current) {
+          mapRef.current.invalidateSize();
+          mapRef.current.setView([13.7563, 100.5018], 6);
+        }
+      }, 300);
     }
 
     return () => {
@@ -309,8 +322,14 @@ export default function TravelMap({
 
     // Auto fit bounds to show all markers with proper padding, if not manually looking at an item
     if (validItems.length > 0 && !selectedItemId) {
-      const group = L.featureGroup(Object.values(markersRef.current));
-      map.fitBounds(group.getBounds().pad(0.12), { animate: true, duration: 1 });
+      setTimeout(() => {
+        if (!mapRef.current) return;
+        mapRef.current.invalidateSize();
+        const group = L.featureGroup(Object.values(markersRef.current));
+        if (group.getLayers().length > 0) {
+          mapRef.current.fitBounds(group.getBounds().pad(0.12), { animate: true });
+        }
+      }, 350);
     }
   }, [items, selectedItemId, onItemSelect, lang]);
 

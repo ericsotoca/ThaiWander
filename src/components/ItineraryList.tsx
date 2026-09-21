@@ -693,17 +693,6 @@ export default function ItineraryList({
                           {/* Expanded high-fidelity details (photos, expert tips, max info) if item is selected */}
                           {isSelected && (
                             <div className="mt-2.5 space-y-2.5 pt-2.5 border-t border-slate-100 animate-fadeIn">
-                              {displayItem.imageUrl && (
-                                <div className="rounded-lg overflow-hidden border border-slate-100 shadow-sm aspect-video w-full bg-slate-100 relative">
-                                  <img 
-                                    src={displayItem.imageUrl} 
-                                    alt={displayItem.placeName} 
-                                    className="w-full h-full object-cover" 
-                                    referrerPolicy="no-referrer" 
-                                  />
-                                </div>
-                              )}
-
                               {displayItem.detailedTips && (
                                 <div className="text-[11px] leading-relaxed text-slate-600 bg-emerald-50/60 p-2.5 rounded-lg border-l-2 border-emerald-400">
                                   <span className="font-extrabold text-emerald-800 flex items-center gap-1 mb-0.5">

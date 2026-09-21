@@ -1,15 +1,29 @@
 import { useState } from 'react';
 import { TripSettings, ItineraryItem } from '../types';
 import { Calendar, Edit3, Save, MapPin, Compass, Wallet, Tent, Car } from 'lucide-react';
+import { ROUTE_TEMPLATES } from '../presetsData';
 
 interface TripHeaderProps {
   settings: TripSettings;
   items: ItineraryItem[];
   onUpdateSettings: (settings: TripSettings) => void;
   lang?: 'fr' | 'th';
+  selectedRouteId: string;
+  selectedWeeks: 2 | 4 | 6;
+  onSelectRoute: (routeId: string) => void;
+  onSelectWeeks: (weeks: 2 | 4 | 6) => void;
 }
 
-export default function TripHeader({ settings, items, onUpdateSettings, lang = 'fr' }: TripHeaderProps) {
+export default function TripHeader({ 
+  settings, 
+  items, 
+  onUpdateSettings, 
+  lang = 'fr',
+  selectedRouteId,
+  selectedWeeks,
+  onSelectRoute,
+  onSelectWeeks
+}: TripHeaderProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(settings.title);
   const [description, setDescription] = useState(settings.description);
@@ -128,6 +142,59 @@ export default function TripHeader({ settings, items, onUpdateSettings, lang = '
 
       {/* Main Stats and Settings Row */}
       <div className="px-6 py-5">
+        {/* Preset Selector Dropdowns */}
+        <div className="mb-4 bg-gradient-to-r from-emerald-500/10 to-teal-500/5 border border-emerald-100 p-3.5 rounded-xl flex flex-col gap-3 shadow-sm">
+          <div className="flex items-center gap-2.5">
+            <div className="p-1.5 bg-emerald-600 rounded-lg text-white">
+              <Compass className="w-4 h-4 text-emerald-100" />
+            </div>
+            <div>
+              <div className="text-[10px] uppercase font-bold text-emerald-800 tracking-wider">
+                {lang === 'fr' ? "🗺️ CONFIGURATEUR DE ROAD TRIP" : "🗺️ ปรับแต่งเส้นทางโรดทริป"}
+              </div>
+              <p className="text-[10px] text-slate-500 font-medium leading-none">
+                {lang === 'fr' 
+                  ? "10 parcours × 3 durées possibles au choix" 
+                  : "มีเส้นทางให้เลือก 10 เส้นทาง × 3 ระยะเวลาตามสไตล์คุณ"}
+              </p>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <div className="sm:col-span-2">
+              <label className="block text-[9px] font-black text-slate-400 uppercase mb-0.5">
+                {lang === 'fr' ? "Région & Thématique" : "เลือกธีมเส้นทางและภาค"}
+              </label>
+              <select
+                value={selectedRouteId}
+                onChange={(e) => onSelectRoute(e.target.value)}
+                className="w-full bg-white text-slate-800 font-bold border border-slate-200 rounded-lg text-[11px] py-1.5 px-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 shadow-sm cursor-pointer"
+              >
+                {ROUTE_TEMPLATES.map(route => (
+                  <option key={route.id} value={route.id}>
+                    {lang === 'fr' ? route.nameFr : route.nameTh}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-[9px] font-black text-slate-400 uppercase mb-0.5">
+                {lang === 'fr' ? "Durée" : "ระยะเวลา"}
+              </label>
+              <select
+                value={selectedWeeks}
+                onChange={(e) => onSelectWeeks(Number(e.target.value) as 2 | 4 | 6)}
+                className="w-full bg-white text-slate-800 font-bold border border-slate-200 rounded-lg text-[11px] py-1.5 px-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 shadow-sm cursor-pointer"
+              >
+                <option value={2}>{lang === 'fr' ? "⏱️ 2 Semaines" : "⏱️ 2 สัปดาห์"}</option>
+                <option value={4}>{lang === 'fr' ? "⏱️ 4 Semaines" : "⏱️ 4 สัปดาห์"}</option>
+                <option value={6}>{lang === 'fr' ? "⏱️ 6 Semaines" : "⏱️ 6 สัปดาห์"}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
         {isEditing ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 bg-slate-50 p-4 rounded-xl border border-slate-100">
             <div>

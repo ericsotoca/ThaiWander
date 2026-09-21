@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ItineraryItem, TripSettings } from './types';
 import { DEFAULT_ITINERARY, DEFAULT_TRIP_SETTINGS, PLACE_COORDINATES } from './initialData';
+import { generatePresetItinerary } from './presetsData';
 import TripHeader from './components/TripHeader';
 import ItineraryList from './components/ItineraryList';
 import TravelMap from './components/TravelMap';
@@ -45,6 +46,43 @@ export default function App() {
     const saved = localStorage.getItem('thaiwander_settings');
     return saved ? JSON.parse(saved) : DEFAULT_TRIP_SETTINGS;
   });
+
+  const [selectedRouteId, setSelectedRouteId] = useState<string>(() => {
+    return localStorage.getItem('thaiwander_selected_route_id') || 'route-1';
+  });
+
+  const [selectedWeeks, setSelectedWeeks] = useState<2 | 4 | 6>(() => {
+    const saved = localStorage.getItem('thaiwander_selected_weeks');
+    return (saved === '2' || saved === '4' || saved === '6') ? (Number(saved) as 2 | 4 | 6) : 4;
+  });
+
+  const handleSelectRoute = (routeId: string) => {
+    setSelectedRouteId(routeId);
+    localStorage.setItem('thaiwander_selected_route_id', routeId);
+    
+    const { items: newItems, title, description } = generatePresetItinerary(routeId, selectedWeeks, lang);
+    setItems(newItems);
+    setSettings({
+      title,
+      description,
+      startDate: settings.startDate || DEFAULT_TRIP_SETTINGS.startDate
+    });
+    setSelectedItemId(null);
+  };
+
+  const handleSelectWeeks = (weeks: 2 | 4 | 6) => {
+    setSelectedWeeks(weeks);
+    localStorage.setItem('thaiwander_selected_weeks', String(weeks));
+    
+    const { items: newItems, title, description } = generatePresetItinerary(selectedRouteId, weeks, lang);
+    setItems(newItems);
+    setSettings({
+      title,
+      description,
+      startDate: settings.startDate || DEFAULT_TRIP_SETTINGS.startDate
+    });
+    setSelectedItemId(null);
+  };
 
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
@@ -247,6 +285,10 @@ export default function App() {
               items={items}
               onUpdateSettings={setSettings}
               lang={lang}
+              selectedRouteId={selectedRouteId}
+              selectedWeeks={selectedWeeks}
+              onSelectRoute={handleSelectRoute}
+              onSelectWeeks={handleSelectWeeks}
             />
             <div className="flex-1 overflow-hidden">
               <ItineraryList
@@ -301,6 +343,10 @@ export default function App() {
                   items={items}
                   onUpdateSettings={setSettings}
                   lang={lang}
+                  selectedRouteId={selectedRouteId}
+                  selectedWeeks={selectedWeeks}
+                  onSelectRoute={handleSelectRoute}
+                  onSelectWeeks={handleSelectWeeks}
                 />
                 <div className="flex-1">
                   <ItineraryList
