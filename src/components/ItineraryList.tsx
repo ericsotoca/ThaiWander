@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { DEFAULT_ITINERARY } from '../initialData';
 import { THAI_TRANSLATIONS, UI_TRANSLATIONS } from '../translations';
+import { estimateRoadTripStats } from '../utils/distance';
 
 interface ItineraryListProps {
   items: ItineraryItem[];
@@ -503,15 +504,15 @@ export default function ItineraryList({
                 const displayItem = getTranslatedItem(item);
 
                 return (
-                  <div
-                    key={item.id}
-                    onClick={() => !isEditing && onItemSelect(item.id)}
-                    className={`group/card border rounded-xl bg-white shadow-sm transition-all duration-200 overflow-hidden ${
-                      isSelected 
-                        ? 'ring-2 ring-slate-800 border-transparent shadow-md' 
-                        : 'border-slate-200 hover:border-slate-300'
-                    }`}
-                  >
+                  <div key={item.id} className="relative">
+                    <div
+                      onClick={() => !isEditing && onItemSelect(item.id)}
+                      className={`group/card border rounded-xl bg-white shadow-sm transition-all duration-200 overflow-hidden ${
+                        isSelected 
+                          ? 'ring-2 ring-slate-800 border-transparent shadow-md' 
+                          : 'border-slate-200 hover:border-slate-300'
+                      }`}
+                    >
                     {isEditing ? (
                       /* Inline Edit Form */
                       <div className="p-4 space-y-3 bg-slate-50/50" onClick={e => e.stopPropagation()}>
@@ -728,6 +729,44 @@ export default function ItineraryList({
                         </div>
                       </div>
                     )}
+                    </div>
+
+                    {/* Transit connector between consecutive items */}
+                    {globalIndex < items.length - 1 && (() => {
+                      const nextItem = items[globalIndex + 1];
+                      if (item.lat && item.lng && nextItem && nextItem.lat && nextItem.lng) {
+                        const stats = estimateRoadTripStats(item.lat, item.lng, nextItem.lat, nextItem.lng);
+                        const isTooLong = stats.hours > 3.0;
+                        
+                        return (
+                          <div className="flex items-center gap-2 pl-6 py-2 my-1 text-[11px] font-medium text-slate-400 select-none relative">
+                            {/* Dotted connector line */}
+                            <div className="absolute left-6 top-[-4px] bottom-[-4px] w-0.5 border-l-2 border-dashed border-slate-200"></div>
+                            
+                            <div className="z-10 flex items-center gap-1.5 bg-slate-50/90 border border-slate-200/80 px-2.5 py-1 rounded-full shadow-xs text-slate-600">
+                              <Car className="w-3.5 h-3.5 text-slate-400" />
+                              <span>
+                                {lang === 'fr' ? 'Vers étape suivante :' : 'ไปจุดแวะถัดไป :'} 
+                              </span>
+                              <span className="font-extrabold text-slate-800">
+                                {stats.km} km
+                              </span>
+                              <span className="text-slate-300">•</span>
+                              <span className={`font-extrabold flex items-center gap-1 ${isTooLong ? 'text-amber-600' : 'text-slate-800'}`}>
+                                {stats.hours}h {lang === 'fr' ? 'de route' : 'ขับรถ'}
+                              </span>
+                              {isTooLong && (
+                                <span className="text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded-md font-bold flex items-center gap-0.5 ml-1">
+                                  <AlertTriangle className="w-3 h-3 text-amber-600" />
+                                  <span>{lang === 'fr' ? '> 3h de route !' : 'ยาวเกิน 3 ชม.!'}</span>
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })()}
                   </div>
                 );
               })}

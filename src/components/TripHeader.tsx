@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { TripSettings, ItineraryItem } from '../types';
 import { Calendar, Edit3, Save, MapPin, Compass, Wallet, Tent, Car } from 'lucide-react';
 import { ROUTE_TEMPLATES } from '../presetsData';
+import { calculateTotalItineraryStats } from '../utils/distance';
 
 interface TripHeaderProps {
   settings: TripSettings;
@@ -61,6 +62,7 @@ export default function TripHeader({
   const campingCount = items.filter(it => it.category === 'Camping').length;
   const lodgingCount = items.filter(it => it.category === 'Lodging').length;
   const totalBudget = items.reduce((sum, it) => sum + (it.budget || 0), 0);
+  const { totalKm, totalHours } = calculateTotalItineraryStats(items);
 
   // Fallback default translations
   const displayTitle = lang === 'th' && settings.title === "Road Trip Camping en Thaïlande"
@@ -231,7 +233,7 @@ export default function TripHeader({
         )}
 
         {/* Dashboard Indicators Card */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-50/70 rounded-xl p-3.5 border border-slate-100">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 bg-slate-50/70 rounded-xl p-3.5 border border-slate-100">
           <div className="flex items-center gap-3 px-2 py-1">
             <div className="p-2 bg-emerald-50 rounded-lg text-emerald-600">
               <Calendar className="w-5 h-5" />
@@ -285,6 +287,20 @@ export default function TripHeader({
               </div>
               <div className="text-xs font-bold text-slate-700 font-mono">
                 {totalBudget.toLocaleString(lang === 'fr' ? 'fr-FR' : 'th-TH')} THB <span className="text-slate-400 font-normal text-[10px]">({Math.round(totalBudget / 38).toLocaleString('fr-FR')} €)</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 px-2 py-1 col-span-2 md:col-span-1">
+            <div className="p-2 bg-blue-50 rounded-lg text-blue-600">
+              <Car className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+                {lang === 'fr' ? "Distance Totale" : "ระยะทางทั้งหมด"}
+              </div>
+              <div className="text-xs font-bold text-slate-700">
+                {totalKm.toLocaleString(lang === 'fr' ? 'fr-FR' : 'th-TH')} km <span className="text-blue-600 ml-1">({totalHours}h)</span>
               </div>
             </div>
           </div>

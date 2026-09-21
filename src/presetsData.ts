@@ -947,19 +947,6 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         maxInfoTh: "ทริปเจาะลึกผืนป่าตะวันตกและอุทยานแห่งชาติ แหล่งรวมของสัตว์สงวนล้ำค่าของประเทศ"
       },
       {
-        placeName: "Khao Yai National Park (Lam Ta Khong)",
-        category: "Camping",
-        notesFr: "Observation des éléphants sauvages et oiseaux calaos",
-        notesTh: "กางเต็นท์ลานลำตะคอง ชมฝูงลิง นกเงือกขนาดใหญ่ และตามรอยช้างป่าเขาใหญ่",
-        lat: 14.4393,
-        lng: 101.3725,
-        budgetPerNight: 100,
-        detailedTipsFr: "Écoutez les cris des gibbons au sommet de la canopée tropicale vers 7h00. Ne les nourrissez en aucun cas.",
-        detailedTipsTh: "ตื่นเช้าฟังเสียงชะนีร้องขับขานทั่วหุบเขาช่วงเจ็ดโมง และห้ามป้อนอาหารลิงป่าข้ามถนนเด็ดขาด",
-        maxInfoFr: "L'un des plus riches sanctuaires de grands mammifères protégés d'Asie.",
-        maxInfoTh: "ผืนป่ามรดกโลกที่ได้รับการปกป้องอย่างดีเยี่ยม เต็มไปด้วยระบบนิเวศป่าฝนที่สมบูรณ์แบบ"
-      },
-      {
         placeName: "Khao Chamao - Khao Wong National Park",
         category: "Camping",
         notesFr: "Bivouac près des grottes de calcaire secrètes",
@@ -971,6 +958,19 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         detailedTipsTh: "ต้องพกไฟฉายสว่างๆ และสวมรองเท้ากีฬาหุ้มส้นสำหรับความปลอดภัยในการมุดลอดถ้ำหินปูนที่มีความชื้น",
         maxInfoFr: "Un parc sauvage et boisé célèbre pour ses grottes calcaires ornées de stalactites géantes.",
         maxInfoTh: "ความอัศจรรย์ของธรรมชาติหินงอกหินย้อย ร่องลึก และฝูงค้างคาวธรรมชาติที่อลังการ"
+      },
+      {
+        placeName: "Khao Khitchakut National Park",
+        category: "Camping",
+        notesFr: "Pèlerinage forestier au sommet de la montagne sacrée",
+        notesTh: "กางเต็นท์เขาคิชฌกูฏ ขึ้นนมัสการรอยพระพุทธบาทพลวง และศึกษาธรรมชาติในป่าดงดิบเขา",
+        lat: 12.8393,
+        lng: 102.1325,
+        budgetPerNight: 100,
+        detailedTipsFr: "Gravissez la montagne pour ressentir la ferveur spirituelle et observez les orchidées sauvages rares.",
+        detailedTipsTh: "นมัสการรอยพระพุทธบาทบนยอดเขาเพื่อเป็นสิริมงคล และชมทิวทัศน์ธรรมชาติของเทือกเขาสูงแบบพาโนรามา",
+        maxInfoFr: "Un haut lieu de pèlerinage au cœur d'une forêt de montagne luxuriante et préservée.",
+        maxInfoTh: "แหล่งธรรมชาติศักดิ์สิทธิ์ที่มีชื่อเสียงที่สุดแห่งหนึ่งในภาคตะวันออก โดดเด่นด้วยวิถีวัฒนธรรมและป่าเขาอุดมสมบูรณ์"
       },
       {
         placeName: "Khao Sip Chan National Park (Chanthaburi)",
@@ -1012,17 +1012,17 @@ export const ROUTE_TEMPLATES: RouteTemplate[] = [
         maxInfoTh: "ป่าสงวนธรรมชาติที่มีความสมบูรณ์สูง เชื่อมต่อผืนป่าดงพญาเย็นและทับลานเข้าด้วยกัน"
       },
       {
-        placeName: "Kaeng Krachan National Park",
+        placeName: "Khao Yai National Park (Lam Ta Khong)",
         category: "Camping",
-        notesFr: "Dernier camp près des rivières herbeuses sauvages",
-        notesTh: "กางเต็นท์แก่งกระจาน นอนแคมป์รับโอโซนเย็นฉ่ำ ส่องกล้องนกกระรางและสัตว์กินพืช",
-        lat: 12.8806,
-        lng: 99.5161,
+        notesFr: "Observation des éléphants sauvages et oiseaux calaos",
+        notesTh: "กางเต็นท์ลานลำตะคอง ชมฝูงลิง นกเงือกขนาดใหญ่ และตามรอยช้างป่าเขาใหญ่",
+        lat: 14.4393,
+        lng: 101.3725,
         budgetPerNight: 100,
-        detailedTipsFr: "Installez votre campement près des zones herbeuses pour observer les biches et oiseaux sauvages boire au ruisseau.",
-        detailedTipsTh: "หาลานกางเต็นท์แถวริมอ่างเก็บน้ำแก่งกระจานตอนเย็น จะมีสัตว์กินพืชตัวเล็กๆ ออกมาเล็มหญ้าให้เราส่องดูอย่างใกล้ชิด",
-        maxInfoFr: "La plus grande forêt tropicale humide protégée du pays.",
-        maxInfoTh: "อุทยานแห่งชาติมรดกโลกทางธรรมชาติอันทรงคุณค่าสูงสุดของภูมิภาคตะวันตก"
+        detailedTipsFr: "Écoutez les cris des gibbons au sommet de la canopée tropicale vers 7h00. Ne les nourrissez en aucun cas.",
+        detailedTipsTh: "ตื่นเช้าฟังเสียงชะนีร้องขับขานทั่วหุบเขาช่วงเจ็ดโมง และห้ามป้อนอาหารลิงป่าข้ามถนนเด็ดขาด",
+        maxInfoFr: "L'un des plus riches sanctuaires de grands mammifères protégés d'Asie.",
+        maxInfoTh: "ผืนป่ามรดกโลกที่ได้รับการปกป้องอย่างดีเยี่ยม เต็มไปด้วยระบบนิเวศป่าฝนที่สมบูรณ์แบบ"
       },
       {
         placeName: "Bangkok",
