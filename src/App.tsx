@@ -277,7 +277,7 @@ export default function App() {
         {/* DESKTOP LAYOUT (2 Pane Layout: Itinerary List + Map) */}
         <div className="hidden lg:flex w-full h-full">
           {/* Left Panel: Itinerary and details (38% width) */}
-          <div className={`transition-all duration-300 h-full flex flex-col bg-white overflow-hidden ${
+          <div className={`transition-all duration-300 h-full flex flex-col bg-white overflow-y-auto ${
             isLeftCollapsed ? 'w-0 border-none' : 'w-[38%] border-r border-slate-200'
           }`}>
             <TripHeader
@@ -290,7 +290,7 @@ export default function App() {
               onSelectRoute={handleSelectRoute}
               onSelectWeeks={handleSelectWeeks}
             />
-            <div className="flex-1 overflow-hidden">
+            <div className="flex-1 border-t border-slate-100">
               <ItineraryList
                 items={items}
                 selectedItemId={selectedItemId}
