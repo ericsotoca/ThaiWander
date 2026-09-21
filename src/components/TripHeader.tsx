@@ -61,8 +61,13 @@ export default function TripHeader({
   const totalDays = items.length > 0 ? Math.max(...items.map(it => it.day)) : 0;
   const campingCount = items.filter(it => it.category === 'Camping').length;
   const lodgingCount = items.filter(it => it.category === 'Lodging').length;
-  const totalBudget = items.reduce((sum, it) => sum + (it.budget || 0), 0);
+  const lodgingBudget = items.reduce((sum, it) => sum + (it.budget || 0), 0);
   const { totalKm, totalHours } = calculateTotalItineraryStats(items);
+
+  // Real-world Thailand travel road trip estimates: Fuel = 3.0 THB/km, Tolls = 0.5 THB/km
+  const fuelCost = Math.round(totalKm * 3.0);
+  const tollCost = Math.round(totalKm * 0.5);
+  const grandTotalBudget = lodgingBudget + fuelCost + tollCost;
 
   // Fallback default translations
   const displayTitle = lang === 'th' && settings.title === "Road Trip Camping en Thaïlande"
@@ -277,7 +282,7 @@ export default function TripHeader({
             </div>
           </div>
 
-          <div className="flex items-center gap-3 px-2 py-1">
+          <div className="flex items-center gap-3 px-2 py-1 relative group/budget">
             <div className="p-2 bg-rose-50 rounded-lg text-rose-600">
               <Wallet className="w-5 h-5" />
             </div>
@@ -286,7 +291,35 @@ export default function TripHeader({
                 {lang === 'fr' ? "Budget estimé" : "งบประมาณประมาณการ"}
               </div>
               <div className="text-xs font-bold text-slate-700 font-mono">
-                {totalBudget.toLocaleString(lang === 'fr' ? 'fr-FR' : 'th-TH')} THB <span className="text-slate-400 font-normal text-[10px]">({Math.round(totalBudget / 38).toLocaleString('fr-FR')} €)</span>
+                {grandTotalBudget.toLocaleString(lang === 'fr' ? 'fr-FR' : 'th-TH')} THB <span className="text-slate-400 font-normal text-[10px]">({Math.round(grandTotalBudget / 38).toLocaleString('fr-FR')} €)</span>
+              </div>
+              <div className="text-[9px] text-slate-400 mt-0.5 leading-none font-semibold">
+                {lang === 'fr' 
+                  ? `Essence : ${fuelCost.toLocaleString('fr-FR')} ฿ • Péages : ${tollCost.toLocaleString('fr-FR')} ฿`
+                  : `น้ำมัน : ${fuelCost.toLocaleString('th-TH')} ฿ • ค่าผ่านทาง : ${tollCost.toLocaleString('th-TH')} ฿`}
+              </div>
+              
+              {/* Detailed Breakdown Tooltip */}
+              <div className="absolute left-0 top-full mt-2 w-56 hidden group-hover/budget:block bg-slate-900 text-slate-100 rounded-xl p-3 shadow-xl border border-slate-800 z-50 text-[10px] space-y-1.5 transition-all">
+                <div className="font-extrabold text-white pb-1 border-b border-slate-800 uppercase tracking-wider text-[9px]">
+                  {lang === 'fr' ? "Détail du Budget" : "รายละเอียดงบประมาณ"}
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-400">{lang === 'fr' ? "Hébergements :" : "ค่าที่พักแรม :"}</span>
+                  <span className="font-mono font-bold text-slate-200">{lodgingBudget.toLocaleString()} THB</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-400">{lang === 'fr' ? "Essence (3 ฿/km) :" : "ค่าน้ำมัน (3 ฿/กม.) :"}</span>
+                  <span className="font-mono font-bold text-emerald-400">+{fuelCost.toLocaleString()} THB</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-400">{lang === 'fr' ? "Péages (0.5 ฿/km) :" : "ค่าผ่านทาง (0.5 ฿/กม.) :"}</span>
+                  <span className="font-mono font-bold text-emerald-400">+{tollCost.toLocaleString()} THB</span>
+                </div>
+                <div className="flex justify-between pt-1.5 border-t border-slate-800 font-bold text-xs text-white">
+                  <span>Total :</span>
+                  <span className="font-mono text-emerald-300">{grandTotalBudget.toLocaleString()} THB</span>
+                </div>
               </div>
             </div>
           </div>

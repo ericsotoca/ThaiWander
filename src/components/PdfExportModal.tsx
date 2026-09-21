@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { ItineraryItem, TripSettings } from '../types';
 import { Printer, X, Check, FileDown, Globe, Eye, MapPin, Calendar, Clock, DollarSign, Quote } from 'lucide-react';
 import { THAI_TRANSLATIONS } from '../translations';
+import { calculateTotalItineraryStats } from '../utils/distance';
 
 interface PdfExportModalProps {
   isOpen: boolean;
@@ -23,6 +24,12 @@ export default function PdfExportModal({ isOpen, onClose, settings, items, defau
   }, [isOpen, defaultLang]);
 
   if (!isOpen) return null;
+
+  const lodgingBudget = items.reduce((sum, item) => sum + (item.budget || 0), 0);
+  const { totalKm } = calculateTotalItineraryStats(items);
+  const fuelCost = Math.round(totalKm * 3.0);
+  const tollCost = Math.round(totalKm * 0.5);
+  const grandTotalBudget = lodgingBudget + fuelCost + tollCost;
 
   // Translate categories
   const getCategoryLabel = (category: string) => {
@@ -314,8 +321,13 @@ export default function PdfExportModal({ isOpen, onClose, settings, items, defau
                 </div>
                 <div>
                   <span className="text-[10px] font-extrabold text-emerald-800 uppercase block mb-0.5">{texts.totalBudget}</span>
-                  <span className="text-xs font-bold text-emerald-600">
-                    {items.reduce((sum, item) => sum + (item.budget || 0), 0).toLocaleString()} THB
+                  <span className="text-xs font-bold text-emerald-600 block">
+                    {grandTotalBudget.toLocaleString()} THB
+                  </span>
+                  <span className="text-[9px] text-slate-400 block mt-0.5 leading-none font-semibold">
+                    {lang === 'fr'
+                      ? `Héb. : ${lodgingBudget.toLocaleString()} ฿ • Ess. : ${fuelCost.toLocaleString()} ฿ • Péages : ${tollCost.toLocaleString()} ฿`
+                      : `ที่พัก : ${lodgingBudget.toLocaleString()} ฿ • น้ำมัน : ${fuelCost.toLocaleString()} ฿ • ค่าผ่านทาง : ${tollCost.toLocaleString()} ฿`}
                   </span>
                 </div>
               </div>
