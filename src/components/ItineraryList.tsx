@@ -5,7 +5,7 @@ import {
   Trash2, ArrowUp, ArrowDown, Search, Plus, 
   ChevronRight, Calendar, Info, Sparkles, Clock, Coins, Check, X, Car,
   ClipboardList, ThermometerSun, AlertTriangle, ChevronDown, ChevronUp,
-  Square, ShieldAlert, CloudRain
+  Square, ShieldAlert, CloudRain, ExternalLink
 } from 'lucide-react';
 import { DEFAULT_ITINERARY } from '../initialData';
 import { THAI_TRANSLATIONS, UI_TRANSLATIONS } from '../translations';
@@ -737,22 +737,29 @@ export default function ItineraryList({
                       if (item.lat && item.lng && nextItem && nextItem.lat && nextItem.lng) {
                         const stats = estimateRoadTripStats(item.lat, item.lng, nextItem.lat, nextItem.lng);
                         const isTooLong = stats.hours > 3.0;
+                        const gmapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${item.lat},${item.lng}&destination=${nextItem.lat},${nextItem.lng}&travelmode=driving`;
                         
                         return (
-                          <div className="flex items-center gap-2 pl-6 py-2 my-1 text-[11px] font-medium text-slate-400 select-none relative">
+                          <div className="flex items-center gap-2 pl-6 py-2 my-1 text-[11px] font-medium text-slate-400 relative">
                             {/* Dotted connector line */}
                             <div className="absolute left-6 top-[-4px] bottom-[-4px] w-0.5 border-l-2 border-dashed border-slate-200"></div>
                             
-                            <div className="z-10 flex items-center gap-1.5 bg-slate-50/90 border border-slate-200/80 px-2.5 py-1 rounded-full shadow-xs text-slate-600">
-                              <Car className="w-3.5 h-3.5 text-slate-400" />
-                              <span>
+                            <a 
+                              href={gmapsUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              title={lang === 'fr' ? "Ouvrir l'itinéraire de navigation dans Google Maps" : "เปิดแผนที่เส้นทางนำทางใน Google Maps"}
+                              className="z-10 flex items-center gap-1.5 bg-white hover:bg-emerald-50 border border-slate-200/80 hover:border-emerald-200 px-3 py-1 rounded-full shadow-xs text-slate-600 hover:text-emerald-800 transition-all duration-200 cursor-pointer active:scale-95 group"
+                            >
+                              <Car className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" />
+                              <span className="group-hover:underline">
                                 {lang === 'fr' ? 'Vers étape suivante :' : 'ไปจุดแวะถัดไป :'} 
                               </span>
-                              <span className="font-extrabold text-slate-800">
+                              <span className="font-extrabold text-slate-800 group-hover:text-emerald-900">
                                 {stats.km} km
                               </span>
                               <span className="text-slate-300">•</span>
-                              <span className={`font-extrabold flex items-center gap-1 ${isTooLong ? 'text-amber-600' : 'text-slate-800'}`}>
+                              <span className={`font-extrabold flex items-center gap-1 ${isTooLong ? 'text-amber-600 group-hover:text-amber-700' : 'text-slate-800 group-hover:text-emerald-900'}`}>
                                 {stats.hours}h {lang === 'fr' ? 'de route' : 'ขับรถ'}
                               </span>
                               {isTooLong && (
@@ -761,7 +768,11 @@ export default function ItineraryList({
                                   <span>{lang === 'fr' ? '> 3h de route !' : 'ยาวเกิน 3 ชม.!'}</span>
                                 </span>
                               )}
-                            </div>
+                              <span className="text-[10px] text-slate-400 group-hover:text-emerald-500 font-bold ml-1 border-l pl-1.5 border-slate-200 flex items-center gap-0.5">
+                                <ExternalLink className="w-3 h-3" />
+                                <span>GPS</span>
+                              </span>
+                            </a>
                           </div>
                         );
                       }

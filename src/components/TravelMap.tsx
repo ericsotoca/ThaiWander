@@ -3,6 +3,7 @@ import L from 'leaflet';
 import { ItineraryItem, CategoryType } from '../types';
 import { THAI_TRANSLATIONS } from '../translations';
 import { DEFAULT_ITINERARY } from '../initialData';
+import { estimateRoadTripStats } from '../utils/distance';
 
 interface TravelMapProps {
   items: ItineraryItem[];
@@ -74,8 +75,7 @@ export default function TravelMap({
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const markersRef = useRef<Record<string, L.Marker>>({});
-  const polylineRef = useRef<L.Polyline | null>(null);
-  const polylineBgRef = useRef<L.Polyline | null>(null);
+  const polylinesRef = useRef<L.Polyline[]>([]);
 
   // Translate single item for map popups
   const getTranslatedItem = (item: ItineraryItem) => {
@@ -169,14 +169,8 @@ export default function TravelMap({
     markersRef.current = {};
 
      // Clear existing polylines
-    if (polylineRef.current) {
-      polylineRef.current.remove();
-      polylineRef.current = null;
-    }
-    if (polylineBgRef.current) {
-      polylineBgRef.current.remove();
-      polylineBgRef.current = null;
-    }
+     polylinesRef.current.forEach(p => p.remove());
+     polylinesRef.current = [];
 
     if (items.length === 0) return;
 
@@ -299,25 +293,77 @@ export default function TravelMap({
     });
 
     // Draw route connecting points in sequence with dual layer driving aesthetic
-    if (latLngs.length > 1) {
-      // 1. Solid background road path
-      polylineBgRef.current = L.polyline(latLngs, {
-        color: '#059669', // Emerald 600
-        weight: 6,
-        opacity: 0.45,
-        lineCap: 'round',
-        lineJoin: 'round'
-      }).addTo(map);
+    if (validItems.length > 1) {
+      for (let i = 0; i < validItems.length - 1; i++) {
+        const origin = validItems[i];
+        const dest = validItems[i + 1];
+        if (origin.lat && origin.lng && dest.lat && dest.lng) {
+          const coords: L.LatLngExpression[] = [
+            [origin.lat, origin.lng],
+            [dest.lat, dest.lng]
+          ];
+          const stats = estimateRoadTripStats(origin.lat, origin.lng, dest.lat, dest.lng);
+          const gmapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${origin.lat},${origin.lng}&destination=${dest.lat},${dest.lng}&travelmode=driving`;
 
-      // 2. Dashed inner GPS styling
-      polylineRef.current = L.polyline(latLngs, {
-        color: '#1e293b', // Slate 800
-        weight: 2.5,
-        opacity: 0.85,
-        dashArray: '8, 8',
-        lineCap: 'round',
-        lineJoin: 'round'
-      }).addTo(map);
+          // Translated step names for popup
+          const transOrigin = getTranslatedItem(origin);
+          const transDest = getTranslatedItem(dest);
+
+          // 1. Solid background road path
+          const segmentBg = L.polyline(coords, {
+            color: '#059669', // Emerald 600
+            weight: 7,
+            opacity: 0.45,
+            lineCap: 'round',
+            lineJoin: 'round',
+            className: 'cursor-pointer hover:opacity-80 transition-all'
+          }).addTo(map);
+
+          // 2. Dashed inner GPS styling
+          const segmentFg = L.polyline(coords, {
+            color: '#1e293b', // Slate 800
+            weight: 2.5,
+            opacity: 0.85,
+            dashArray: '8, 8',
+            lineCap: 'round',
+            lineJoin: 'round',
+            className: 'cursor-pointer'
+          }).addTo(map);
+
+          // Popup content
+          const popupContent = `
+            <div class="p-2 font-sans text-center max-w-[220px]">
+              <h4 class="font-extrabold text-[11px] text-slate-800 mb-1 leading-snug">
+                🚗 ${transOrigin.placeName} <br/>➔ ${transDest.placeName}
+              </h4>
+              <p class="text-[10px] text-slate-500 mb-2.5">
+                <strong>${stats.km} km</strong> • <strong>${stats.hours}h ${lang === 'fr' ? 'de route' : 'ขับรถ'}</strong>
+              </p>
+              <a href="${gmapsUrl}" 
+                 target="_blank" 
+                 rel="noreferrer" 
+                 class="inline-flex items-center justify-center gap-1 bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-extrabold py-1.5 px-3 rounded-lg transition-all"
+                 style="display: inline-flex; text-decoration: none; color: white;"
+              >
+                <span>${lang === 'fr' ? "Voir l'itinéraire Google Maps" : "ดูเส้นทาง Google Maps"} ➔</span>
+              </a>
+            </div>
+          `;
+
+          segmentBg.bindPopup(popupContent, { closeButton: false, offset: [0, 0] });
+          segmentFg.bindPopup(popupContent, { closeButton: false, offset: [0, 0] });
+
+          // Add subtle hover animations
+          segmentFg.on('mouseover', () => {
+            segmentBg.setStyle({ color: '#10b981', weight: 11, opacity: 0.7 });
+          });
+          segmentFg.on('mouseout', () => {
+            segmentBg.setStyle({ color: '#059669', weight: 7, opacity: 0.45 });
+          });
+
+          polylinesRef.current.push(segmentBg, segmentFg);
+        }
+      }
     }
 
     // Auto fit bounds to show all markers with proper padding, if not manually looking at an item
